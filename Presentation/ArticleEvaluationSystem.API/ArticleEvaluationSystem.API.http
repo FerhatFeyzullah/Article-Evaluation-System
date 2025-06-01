@@ -1,0 +1,6 @@
+@ArticleEvaluationSystem.API_HostAddress = http://localhost:5291
+
+GET {{ArticleEvaluationSystem.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
