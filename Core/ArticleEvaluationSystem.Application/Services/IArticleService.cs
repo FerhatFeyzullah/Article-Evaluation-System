@@ -10,7 +10,7 @@ namespace ArticleEvaluationSystem.Application.Services
 {
     public interface IArticleService
     {
-        Task<int> UploadArticle(CreateArticleDto createArticleDto);
-        Task<ResultArticleDto> GetArticleByIdAndWriter(int id, string email);
+        Task<string> UploadArticle(CreateArticleDto createArticleDto);
+        Task<ResultArticleDto> GetArticleByIdAndWriter(string fileName, string email);
     }
 }

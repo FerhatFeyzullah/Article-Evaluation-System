@@ -20,7 +20,7 @@ namespace ArticleEvaluationSystem.Infrastructure.Services
             }
         }
 
-        public async Task<string> SavePdfAsync(IFormFile pdf)
+        public async Task<(string filePath, string fileName)> SavePdfAsync(IFormFile pdf)
         {
             var fileName = Guid.NewGuid() + Path.GetExtension(pdf.FileName);
             var filePath = Path.Combine(_storagePath, fileName);
@@ -28,7 +28,7 @@ namespace ArticleEvaluationSystem.Infrastructure.Services
             using var stream = new FileStream(filePath, FileMode.Create);
             await pdf.CopyToAsync(stream);
 
-            return filePath.Replace("\\", "/");
+            return (filePath.Replace("\\", "/"),fileName);
         }
     }
 }

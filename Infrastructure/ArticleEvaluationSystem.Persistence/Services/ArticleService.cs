@@ -27,10 +27,11 @@ namespace ArticleEvaluationSystem.Persistence.Services
             _logService = logService;
         }
 
-        public async Task<int> UploadArticle(CreateArticleDto createArticleDto)
+        public async Task<string> UploadArticle(CreateArticleDto createArticleDto)
         {
+            var fileResult = await _fileStorageService.SavePdfAsync(createArticleDto.PDF);
 
-            var filePath = await _fileStorageService.SavePdfAsync(createArticleDto.PDF);
+            
 
             var name = createArticleDto.PDF.FileName;
 
@@ -38,7 +39,8 @@ namespace ArticleEvaluationSystem.Persistence.Services
             {
                 Title = createArticleDto.Title,
                 WriterEmail = createArticleDto.WriterEmail,
-                DosyaYolu = filePath,
+                FilePath = fileResult.filePath,
+                FileName = fileResult.fileName,
                 JudgeStatus = false,
 
             };
@@ -46,13 +48,13 @@ namespace ArticleEvaluationSystem.Persistence.Services
             _context.Articles.Add(article);
             await _context.SaveChangesAsync();
             await _logService.CreateLogAsync("Yeni bir makale yüklendi.", createArticleDto.WriterEmail);
-            return article.ArticleId;
+            return article.FileName;
         }
 
 
-        public async Task<ResultArticleDto> GetArticleByIdAndWriter(int id, string email)
+        public async Task<ResultArticleDto> GetArticleByIdAndWriter(string fileName, string email)
         {
-            var value = await _context.Articles.Include(x => x.Judge).FirstOrDefaultAsync(x => x.ArticleId == id && x.WriterEmail == email);
+            var value = await _context.Articles.Include(x => x.Judge).FirstOrDefaultAsync(x => x.FileName==fileName && x.WriterEmail == email);
             return _mapper.Map<ResultArticleDto>(value);
         }
     }

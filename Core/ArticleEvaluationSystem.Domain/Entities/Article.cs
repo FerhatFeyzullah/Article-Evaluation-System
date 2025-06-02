@@ -10,7 +10,8 @@ namespace ArticleEvaluationSystem.Domain.Entities
     {
         public int ArticleId { get; set; }
         public string Title { get; set; }
-        public string DosyaYolu { get; set; }
+        public string FilePath { get; set; }
+        public string FileName { get; set; }
         public bool JudgeStatus { get; set; } = false;
 
 

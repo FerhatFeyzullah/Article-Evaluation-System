@@ -16,9 +16,9 @@ namespace ArticleEvaluationSystem.API.Controllers
             return Ok("Pdf Yukleme basarili,id :" + id);
         }
         [HttpGet("GetArticleByIdAndWriter")]
-        public async Task<IActionResult> GetArticleByIdAndWriter(int id, string email) 
+        public async Task<IActionResult> GetArticleByIdAndWriter(string fileName, string email) 
         {
-            var value = await _articleService.GetArticleByIdAndWriter(id, email);
+            var value = await _articleService.GetArticleByIdAndWriter(fileName, email);
             if (value == null)
             {
                 return NotFound("Makale bulunamadi.");

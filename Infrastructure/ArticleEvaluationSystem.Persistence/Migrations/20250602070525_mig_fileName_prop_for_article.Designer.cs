@@ -4,6 +4,7 @@ using ArticleEvaluationSystem.Persistence.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArticleEvaluationSystem.Persistence.Migrations
 {
     [DbContext(typeof(ArticleDbContext))]
-    partial class ArticleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250602070525_mig_fileName_prop_for_article")]
+    partial class mig_fileName_prop_for_article
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

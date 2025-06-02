@@ -9,6 +9,6 @@ namespace ArticleEvaluationSystem.Application.Services
 {
     public interface IFileStorageService
     {
-        Task<string> SavePdfAsync(IFormFile pdf);
+        Task<(string filePath, string fileName)> SavePdfAsync(IFormFile pdf);
     }
 }
