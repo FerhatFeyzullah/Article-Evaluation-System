@@ -1,20 +1,24 @@
 ﻿using ArticleEvaluationSystem.Application.DTOs.ArticleDTOs;
 using ArticleEvaluationSystem.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArticleEvaluationSystem.API.Controllers
 {
+    [Authorize(Roles ="Admin,Judge")]
     [Route("api/[controller]")]
     [ApiController]
     public class ArticlesController(IArticleService _articleService) : ControllerBase
     {
+        [AllowAnonymous]
         [HttpPost("Upload")]
         public async Task<IActionResult> UploadArticle([FromForm] CreateArticleDto createArticleDto)
         {
             var id = await _articleService.UploadArticle(createArticleDto);
             return Ok("Pdf Yukleme basarili,id :" + id);
         }
+        [AllowAnonymous]
         [HttpGet("GetArticleByIdAndWriter")]
         public async Task<IActionResult> GetArticleByIdAndWriter(string fileName, string email) 
         {
@@ -26,6 +30,7 @@ namespace ArticleEvaluationSystem.API.Controllers
             return Ok(value);
 
         }
+        
         [HttpPut("AssignJudgeToArticle")]
         public async Task<IActionResult> AssignJudgeToArticle(int articleId, int judgeId) 
         {

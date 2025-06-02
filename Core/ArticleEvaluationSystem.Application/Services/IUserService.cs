@@ -13,7 +13,7 @@ namespace ArticleEvaluationSystem.Application.Services
     {
         Task<IdentityResult> CreateUserAsync(UserRegisterDto userRegisterDto);
 
-        Task<IdentityResult> LoginAsync(UserLoginDto userLoginDto);
+        Task<string?> LoginAsync(UserLoginDto userLoginDto);
 
         Task LogoutAsync();
 

@@ -6,6 +6,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using AutoMapper;
+using ArticleEvaluationSystem.Persistence.Configurations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +21,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddPersistenceExtension();
+builder.Services.AddPersistenceExtension(builder.Configuration);
 builder.Services.AddInfrastructureExtension(); 
 
 builder.Services.AddDbContext<ArticleDbContext>(options => 
@@ -27,7 +31,29 @@ builder.Services.AddDbContext<ArticleDbContext>(options =>
     
 
 builder.Services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<ArticleDbContext>();
-    
+
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<JwtTokenOptions>();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidIssuer = tokenOptions.Issuer,
+        ValidAudience = tokenOptions.Audience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.Key)),
+        ClockSkew = TimeSpan.Zero,
+        NameClaimType = "name",
+
+    };
+});
 
 var app = builder.Build();
 
@@ -40,6 +66,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

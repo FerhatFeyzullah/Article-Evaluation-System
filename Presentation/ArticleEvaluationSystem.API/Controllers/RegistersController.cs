@@ -7,7 +7,7 @@ namespace ArticleEvaluationSystem.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RegistersController(IUserService _userService) : ControllerBase
+    public class RegistersController(IUserService _userService, IJwtService _jwtService) : ControllerBase
     {
         [HttpPost("Register")]
         public async Task<IActionResult> Register(UserRegisterDto userRegisterDto)
@@ -25,15 +25,13 @@ namespace ArticleEvaluationSystem.API.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UserLoginDto userLoginDto) 
         {
-            var result = await _userService.LoginAsync(userLoginDto);
-            if (result.Succeeded)
+            var token = await _userService.LoginAsync(userLoginDto);
+            if (token == null)
             {
-                return Ok(new { message = "Login successful." });
+                return BadRequest(new { message = "Email veya şifre hatalı." });
             }
-            else
-            {
-                return BadRequest(new { errors = result.Errors.Select(e => e.Description) });
-            }
+
+            return Ok(new { token });
 
         }
         [HttpPost("Logout")]

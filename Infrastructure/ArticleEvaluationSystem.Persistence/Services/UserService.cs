@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ArticleEvaluationSystem.Persistence.Services
 {
-    public class UserService(UserManager<AppUser> _userManager,SignInManager<AppUser> _signManager, IMapper _mapper) : IUserService
+    public class UserService(UserManager<AppUser> _userManager,SignInManager<AppUser> _signManager, IMapper _mapper,IJwtService _jwtService) : IUserService
     {
         public async Task<IdentityResult> CreateUserAsync(UserRegisterDto userRegisterDto)
         {
@@ -30,7 +30,7 @@ namespace ArticleEvaluationSystem.Persistence.Services
 
             if (result.Succeeded) 
             { 
-                await _userManager.AddToRoleAsync(user, "Hakem");
+                await _userManager.AddToRoleAsync(user, "Judge");
                 return result;
 
             }
@@ -44,22 +44,18 @@ namespace ArticleEvaluationSystem.Persistence.Services
             return  _mapper.Map<List<ResultAppUserDto>>(values);
         }
 
-        public async Task<IdentityResult> LoginAsync(UserLoginDto userLoginDto)
+        public async Task<string?> LoginAsync(UserLoginDto userLoginDto)
         {
             var user = await _userManager.FindByEmailAsync(userLoginDto.Email);
             if (user == null)
-            {
-                return IdentityResult.Failed(new IdentityError { Description = "Kullanıcı Bulunamadı" });
-            }
+                return null;
+
             var result = await _signManager.PasswordSignInAsync(user, userLoginDto.Password, false, false);
-            if (result.Succeeded)
-            {
-                return IdentityResult.Success;
-            }
-            else
-            {
-                return IdentityResult.Failed(new IdentityError { Description = "Hatalı Bilgi Girişi" });
-            }
+            if (!result.Succeeded)
+                return null;
+
+            var token = await _jwtService.CreateTokenAsync(user);
+            return token;
         }
 
         public async Task LogoutAsync()
