@@ -9,8 +9,8 @@ namespace ArticleEvaluationSystem.API.Controllers
     [ApiController]
     public class RegistersController(IUserService _userService) : ControllerBase
     {
-        [HttpPost]
-        public async Task<IActionResult> SignUp(UserRegisterDto userRegisterDto)
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register(UserRegisterDto userRegisterDto)
         {
             var result = await _userService.CreateUserAsync(userRegisterDto);
             if (result.Succeeded)
@@ -21,6 +21,26 @@ namespace ArticleEvaluationSystem.API.Controllers
             {
                 return BadRequest(new { errors = result.Errors.Select(e => e.Description) });
             }
+        }
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(UserLoginDto userLoginDto) 
+        {
+            var result = await _userService.LoginAsync(userLoginDto);
+            if (result.Succeeded)
+            {
+                return Ok(new { message = "Login successful." });
+            }
+            else
+            {
+                return BadRequest(new { errors = result.Errors.Select(e => e.Description) });
+            }
+
+        }
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _userService.LogoutAsync();
+            return Ok(new { message = "Logout successful." });
         }
     }
 }

@@ -11,6 +11,11 @@ namespace ArticleEvaluationSystem.Application.Services
     public interface IArticleService
     {
         Task<string> UploadArticle(CreateArticleDto createArticleDto);
+
         Task<ResultArticleDto> GetArticleByIdAndWriter(string fileName, string email);
+
+        Task AssignJudgeToArticle(int articleId, int judgeId);
+
+        Task UpdateArticleStatus(int articleId, bool status, string reasonForEditing);
     }
 }

@@ -12,6 +12,11 @@ namespace ArticleEvaluationSystem.Application.Services
     public interface IUserService
     {
         Task<IdentityResult> CreateUserAsync(UserRegisterDto userRegisterDto);
+
+        Task<IdentityResult> LoginAsync(UserLoginDto userLoginDto);
+
+        Task LogoutAsync();
+
         Task<List<ResultAppUserDto>> GetAllJudges();
     }
 }

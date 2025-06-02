@@ -26,5 +26,17 @@ namespace ArticleEvaluationSystem.API.Controllers
             return Ok(value);
 
         }
+        [HttpPut("AssignJudgeToArticle")]
+        public async Task<IActionResult> AssignJudgeToArticle(int articleId, int judgeId) 
+        {
+            await _articleService.AssignJudgeToArticle(articleId, judgeId);
+            return Ok("Hakem atama islemi basarili.");
+        }
+        [HttpPut("UpdateArticleStatus")]
+        public async Task<IActionResult> UpdateArticleStatus(int articleId, bool status, string reasonForEditing)
+        {
+            await _articleService.UpdateArticleStatus(articleId, status, reasonForEditing);
+            return Ok("Makale durumu guncellendi.");
+        }
     }
 }

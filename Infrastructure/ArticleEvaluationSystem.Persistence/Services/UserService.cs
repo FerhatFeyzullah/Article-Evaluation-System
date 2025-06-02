@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ArticleEvaluationSystem.Persistence.Services
 {
-    public class UserService(UserManager<AppUser> _userManager,IMapper _mapper) : IUserService
+    public class UserService(UserManager<AppUser> _userManager,SignInManager<AppUser> _signManager, IMapper _mapper) : IUserService
     {
         public async Task<IdentityResult> CreateUserAsync(UserRegisterDto userRegisterDto)
         {
@@ -42,6 +42,29 @@ namespace ArticleEvaluationSystem.Persistence.Services
         {
             var values = await _userManager.GetUsersInRoleAsync("Hakem");
             return  _mapper.Map<List<ResultAppUserDto>>(values);
+        }
+
+        public async Task<IdentityResult> LoginAsync(UserLoginDto userLoginDto)
+        {
+            var user = await _userManager.FindByEmailAsync(userLoginDto.Email);
+            if (user == null)
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "Kullanıcı Bulunamadı" });
+            }
+            var result = await _signManager.PasswordSignInAsync(user, userLoginDto.Password, false, false);
+            if (result.Succeeded)
+            {
+                return IdentityResult.Success;
+            }
+            else
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "Hatalı Bilgi Girişi" });
+            }
+        }
+
+        public async Task LogoutAsync()
+        {
+            await _signManager.SignOutAsync();
         }
     }
 }

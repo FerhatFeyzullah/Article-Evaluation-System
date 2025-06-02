@@ -47,7 +47,7 @@ namespace ArticleEvaluationSystem.Persistence.Services
 
             _context.Articles.Add(article);
             await _context.SaveChangesAsync();
-            await _logService.CreateLogAsync("Yeni bir makale yüklendi.", createArticleDto.WriterEmail);
+            await _logService.CreateLogAsync($"Yeni bir makale yüklendi. Makale Id: {article.ArticleId}", createArticleDto.WriterEmail);
             return article.FileName;
         }
 
@@ -56,6 +56,38 @@ namespace ArticleEvaluationSystem.Persistence.Services
         {
             var value = await _context.Articles.Include(x => x.Judge).FirstOrDefaultAsync(x => x.FileName==fileName && x.WriterEmail == email);
             return _mapper.Map<ResultArticleDto>(value);
+        }
+
+        public async Task AssignJudgeToArticle(int articleId, int judgeId)
+        {
+            var value = await _context.Articles.FirstOrDefaultAsync(x => x.ArticleId == articleId);
+
+            if (value == null)
+                throw new Exception("Makale bulunamadı.");
+
+            value.JudgeId = judgeId;
+            value.JudgeStatus = true;
+            _context.Articles.Update(value);
+            await _context.SaveChangesAsync();
+            await _logService.CreateLogAsync($"Makale {articleId} için hakem atandı.", value.WriterEmail);
+        }
+
+        public async Task UpdateArticleStatus(int articleId, bool status, string reasonForEditing)
+        {
+            var value = await _context.Articles.FirstOrDefaultAsync(x => x.ArticleId == articleId);
+
+            if (value == null)
+                throw new Exception("Makale bulunamadı.");
+
+            value.ArticleStatus = status;
+            value.ReasonForEditing = reasonForEditing;
+            _context.Articles.Update(value);
+            await _context.SaveChangesAsync();
+            await _logService.CreateLogAsync(
+                $"Makale {articleId} durumu güncellendi.",
+                value.WriterEmail,
+                $" Yeni durum: {(status ? "Kabul Edildi" : "Reddedildi")}. Gerekçe: {reasonForEditing}");
+            
         }
     }
 }
