@@ -17,18 +17,22 @@ namespace ArticleEvaluationSystem.Persistence.Services
         private readonly IFileStorageService _fileStorageService;
         public readonly ArticleDbContext _context;
         private readonly IMapper _mapper;
+        private readonly ILogService _logService;
 
-        public ArticleService(IFileStorageService fileStorageService, ArticleDbContext context, IMapper mapper)
+        public ArticleService(IFileStorageService fileStorageService, ArticleDbContext context, IMapper mapper, ILogService logService)
         {
             _fileStorageService = fileStorageService;
             _context = context;
             _mapper = mapper;
+            _logService = logService;
         }
 
         public async Task<int> UploadArticle(CreateArticleDto createArticleDto)
         {
 
             var filePath = await _fileStorageService.SavePdfAsync(createArticleDto.PDF);
+
+            var name = createArticleDto.PDF.FileName;
 
             var article = new Article
             {
@@ -41,6 +45,7 @@ namespace ArticleEvaluationSystem.Persistence.Services
 
             _context.Articles.Add(article);
             await _context.SaveChangesAsync();
+            await _logService.CreateLogAsync("Yeni bir makale yüklendi.", createArticleDto.WriterEmail);
             return article.ArticleId;
         }
 

@@ -19,6 +19,7 @@ namespace ArticleEvaluationSystem.Persistence.DbContext
 
         public DbSet<Article> Articles { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Log> Logs { get; set; }
 
     }
 }

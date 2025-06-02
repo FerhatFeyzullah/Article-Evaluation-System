@@ -11,5 +11,6 @@ namespace ArticleEvaluationSystem.Application.DTOs.MessageDTOs
         public string Subject { get; set; }
         public string Content { get; set; }
         public string Email { get; set; }
+
     }
 }

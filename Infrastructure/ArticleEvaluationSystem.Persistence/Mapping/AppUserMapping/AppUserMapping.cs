@@ -9,9 +9,9 @@ using AutoMapper;
 
 namespace ArticleEvaluationSystem.Persistence.Mapping.AppUserMapping
 {
-    public class ResultAppUserDtoMapping:Profile
+    public class AppUserMapping:Profile
     {
-        public ResultAppUserDtoMapping()
+        public AppUserMapping()
         {
             CreateMap<AppUser, ResultAppUserDto>().ReverseMap();
         }

@@ -9,9 +9,9 @@ using AutoMapper;
 
 namespace ArticleEvaluationSystem.Persistence.Mapping.ArticleMapping
 {
-    public class ResultArticleDtoMapping:Profile
+    public class ArticleMapping:Profile
     {
-        public ResultArticleDtoMapping()
+        public ArticleMapping()
         {
             CreateMap<Article, ResultArticleDto>().ReverseMap();
         }

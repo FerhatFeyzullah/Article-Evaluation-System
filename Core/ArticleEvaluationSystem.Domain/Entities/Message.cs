@@ -12,5 +12,6 @@ namespace ArticleEvaluationSystem.Domain.Entities
         public string Subject { get; set; }
         public string Content { get; set; }
         public string Email { get; set; }
+        public bool Read { get; set; } = false;
     }
 }

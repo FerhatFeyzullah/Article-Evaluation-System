@@ -5,9 +5,8 @@ using ArticleEvaluationSystem.Infrastructure.ServiceExtension;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using ArticleEvaluationSystem.Persistence.Mapping.ArticleMapping;
 using AutoMapper;
-using ArticleEvaluationSystem.Persistence.Mapping.AppUserMapping;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,12 +17,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddPersistenceExtencion();
+builder.Services.AddPersistenceExtension();
 builder.Services.AddInfrastructureExtension(); 
-
-builder.Services.AddAutoMapper(typeof(ResultArticleDtoMapping));
-builder.Services.AddAutoMapper(typeof(ResultAppUserDtoMapping));
-
 
 builder.Services.AddDbContext<ArticleDbContext>(options => 
 {
