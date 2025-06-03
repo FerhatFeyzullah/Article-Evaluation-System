@@ -1,9 +1,10 @@
-.alert-div {
-    margin-top: 30px;
-    width: 100%;
+.inquiry-main {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
 
+.inquiry-input {
+    margin-right: 15px;
 }

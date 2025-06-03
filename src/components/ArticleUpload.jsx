@@ -5,7 +5,7 @@ import SendIcon from '@mui/icons-material/Send'
 import '../css/ArticleUpload.css'
 import { schema } from '../schemas/ArticleUploadSchema'
 import { useDispatch } from 'react-redux'
-import { UploadArticle } from '../redux/slices/articleUploadSlice'
+import { PostUploadArticle, } from '../redux/slices/articleUploadSlice'
 
 function ArticleUpload() {
   const [fileName, setFileName] = useState('')
@@ -54,15 +54,13 @@ function ArticleUpload() {
         return
       }
 
-      formClear();
-
 
       const data = new FormData()
       data.append('Title', title)
       data.append('WriterEmail', email)
       data.append('PDF', file)
-      dispatch(UploadArticle(data))
-
+      dispatch(PostUploadArticle(data))
+      formClear();
 
     } catch (err) {
       const errObj = {}
@@ -81,27 +79,48 @@ function ArticleUpload() {
 
         <h3 className="a-u-h3">Makale Yükleme</h3>
 
-        <TextField
-          label="Başlık"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          variant="standard"
-          size="small"
-          sx={{ marginBottom: '5px' }}
-          fullWidth
-        />
-        {errors.title && <span style={{ color: 'red' }}>{errors.title}</span>}
-
-        <TextField
-          label="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          variant="standard"
-          size="small"
-          sx={{ marginBottom: '5px', marginTop: '10px' }}
-          fullWidth
-        />
-        {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
+        <div style={{ width: '100%' }}>
+          {
+            errors.email ?
+              <TextField
+                error
+                size='small'
+                label="Başlık"
+                fullWidth
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                helperText={errors.title}
+                variant='standard'
+              />
+              :
+              <TextField label='Başlık' variant='standard' size='small'
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                fullWidth
+              />
+          }
+        </div>
+        <div style={{ width: '100%' }}>
+          {
+            errors.email ?
+              <TextField
+                error
+                size='small'
+                label="Email"
+                fullWidth
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                helperText={errors.email}
+                variant='standard'
+              />
+              :
+              <TextField label='Email' variant='standard' size='small'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                fullWidth
+              />
+          }
+        </div>
 
         <div className="file-input" style={{ display: 'flex', alignItems: 'center', marginTop: '15px' }}>
           <Button variant="contained" component="label" sx={{ width: '120px', marginRight: '10px' }}>

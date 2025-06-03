@@ -10,7 +10,7 @@ const initialState = {
     rejectedAlert: false
 }
 
-export const UploadArticle = createAsyncThunk('UploadArticle', async (data) => {
+export const PostUploadArticle = createAsyncThunk('UploadArticle', async (data) => {
     const response = await axios.post(`${BASE_URL}articles/upload`, data);
     return response.data;
 })
@@ -29,16 +29,16 @@ export const articleUploadSlice = createSlice({
     },
     extraReducers: (builder) => {
 
-        builder.addCase(UploadArticle.pending, (state) => {
+        builder.addCase(PostUploadArticle.pending, (state) => {
             state.loading = true;
         }),
 
-            builder.addCase(UploadArticle.fulfilled, (state, action) => {
+            builder.addCase(PostUploadArticle.fulfilled, (state, action) => {
                 state.tracingKey = action.payload;
                 state.loading = false;
                 state.successAlert = true;
             }),
-            builder.addCase(UploadArticle.rejected, (state) => {
+            builder.addCase(PostUploadArticle.rejected, (state) => {
                 state.rejectedAlert = true;
                 state.loading = false;
 

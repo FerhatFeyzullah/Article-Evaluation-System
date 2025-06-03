@@ -1,16 +1,13 @@
 import Alert from '@mui/material/Alert';
 import { IconButton } from '@mui/material';
-import useCopyToClipboard from '../hooks/useCopyToClipboard';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useDispatch, useSelector } from 'react-redux';
-import { rejectedAlertChange, succesAlertChange } from '../redux/slices/articleUploadSlice';
+import { useDispatch } from 'react-redux';
+import { rejectedAlertChange } from '../../redux/slices/articleUploadSlice';
 
-function RejectedAlert() {
+function RejectedAlert({ rejectedAlert, change }) {
 
-    const dispatch = useDispatch();
-    const { rejectedAlert } = useSelector(store => store.articleUpload);
+
+
 
     return (
         <div>{rejectedAlert && <Alert
@@ -19,7 +16,7 @@ function RejectedAlert() {
             action={
                 <div style={{ display: 'flex', alignItems: 'center' }}>
 
-                    <IconButton onClick={() => dispatch(rejectedAlertChange())}>
+                    <IconButton onClick={change}>
                         <ClearIcon />
                     </IconButton>
                 </div>
