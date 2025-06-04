@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { Button, TextField } from '@mui/material'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import '../css/Register.css'
 import { useNavigate } from 'react-router-dom';

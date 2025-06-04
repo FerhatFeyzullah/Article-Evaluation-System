@@ -3,13 +3,17 @@ import articleUploadReducer from './slices/articleUploadSlice'
 import articleStatusInquiryReducer from './slices/articleStatusInquirySlice'
 import registerReducer from './slices/registerSlice'
 import dilaogReducer from './slices/dialogSlice'
+import loginReducer from './slices/loginSlice'
+import adminReducer from './slices/adminSlice'
 
 export const store = configureStore({
     reducer: {
         articleUpload: articleUploadReducer,
         articleInquiry: articleStatusInquiryReducer,
         register: registerReducer,
-        dialog: dilaogReducer
+        dialog: dilaogReducer,
+        login: loginReducer,
+        admin: adminReducer
 
     },
 })
