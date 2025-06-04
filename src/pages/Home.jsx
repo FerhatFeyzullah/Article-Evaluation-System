@@ -4,7 +4,6 @@ import ArticleUpload from '../components/ArticleUpload'
 import Loading from '../components/Loading'
 import SuccessAlert from '../components/Alerts/SuccessAlert'
 import RejectedAlert from '../components/Alerts/RejectedAlert'
-import '../css/Home.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { rejectedAlertChange } from '../redux/slices/articleUploadSlice'
 

@@ -1,0 +1,40 @@
+.register-input {
+    margin-bottom: 10px;
+}
+
+.register-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.register-buttons-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-card {
+    border: 1px solid rgb(228, 219, 219);
+    box-shadow: 10px 10px 5px lightblue;
+    border-radius: 5px;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+}
+
+.register-inputs {
+    width: 300px;
+}
+
+.register-checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 5px;
+
+}

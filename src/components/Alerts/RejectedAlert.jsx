@@ -1,8 +1,7 @@
 import Alert from '@mui/material/Alert';
 import { IconButton } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useDispatch } from 'react-redux';
-import { rejectedAlertChange } from '../../redux/slices/articleUploadSlice';
+
 
 function RejectedAlert({ rejectedAlert, change }) {
 

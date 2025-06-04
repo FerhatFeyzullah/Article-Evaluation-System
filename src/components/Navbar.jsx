@@ -1,6 +1,5 @@
 import React from 'react'
 import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -8,10 +7,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 function Navbar() {
 
+
     const navigate = useNavigate();
     const location = useLocation();
 
-    const isOnInquiryPage = location.pathname === '/makaledurumsorgulama';
+    const isOnUploadArticlePage = location.pathname !== '/makalesistemi';
+    const isOnInquiryPage = location.pathname !== '/makaledurumsorgulama' && location.pathname !== '/girisyap' && location.pathname !== '/kaydol';
+    const isOnRegisterPage = location.pathname !== '/kaydol';
+    const isOnLoginPage = location.pathname !== '/girisyap';
 
     return (
         <div >
@@ -26,22 +29,42 @@ function Navbar() {
                     <div className='navbar-buttons'>
                         <div>
                             {
-                                isOnInquiryPage ?
-                                    <Button variant='contained' sx={{ backgroundColor: 'rgb(207, 192, 58)' }}
-                                        onClick={() => navigate('/makalesistemi')}
-                                    >Makale Yükleme
-                                    </Button>
-                                    :
-                                    <Button variant='contained' sx={{ backgroundColor: 'rgb(207, 192, 58)' }}
-                                        onClick={() => navigate('/makaledurumsorgulama')}
-                                    >Makale Durum Takibi
-                                    </Button>
+                                isOnInquiryPage
+                                &&
+                                <Button variant='contained' sx={{ backgroundColor: 'rgb(207, 192, 58)' }}
+                                    onClick={() => navigate('/makaledurumsorgulama')}
+                                >Makale Durum Takibi
+                                </Button>
+                            }
+                            {
+                                isOnUploadArticlePage
+                                &&
+                                <Button variant='contained' sx={{ backgroundColor: 'rgb(207, 192, 58)' }}
+                                    onClick={() => navigate('/makalesistemi')}
+                                >Makale Yükleme
+                                </Button>
                             }
 
                         </div>
                         <div>
-                            <Button variant='contained' sx={{ marginRight: '15px', backgroundColor: 'rgb(34, 83, 53)' }}>Giriş Yap</Button>
-                            <Button variant='contained' sx={{ marginRight: '15px', backgroundColor: 'rgb(32, 49, 94)' }}>Kaydol</Button>
+                            {
+                                isOnLoginPage
+                                &&
+                                <Button variant='contained' sx={{ marginRight: '15px', backgroundColor: 'rgb(34, 83, 53)' }}
+                                    onClick={() => navigate('/girisyap')} >
+                                    Giriş Yap
+                                </Button>
+                            }
+
+                            {
+                                isOnRegisterPage
+                                &&
+                                <Button variant='contained' sx={{ marginRight: '15px', backgroundColor: 'rgb(20, 45, 116)' }}
+                                    onClick={() => navigate('/kaydol')} >
+                                    Kaydol
+                                </Button>
+                            }
+
                         </div>
                     </div>
 
