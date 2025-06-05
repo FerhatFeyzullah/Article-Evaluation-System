@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-const BASE_URL = 'https://localhost:7247/api/'
 
 const initialState = {
     dialog: false,

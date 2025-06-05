@@ -5,6 +5,7 @@ import registerReducer from './slices/registerSlice'
 import dilaogReducer from './slices/dialogSlice'
 import loginReducer from './slices/loginSlice'
 import adminReducer from './slices/adminSlice'
+import logoutReducer from './slices/logoutSlice'
 
 export const store = configureStore({
     reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
         register: registerReducer,
         dialog: dilaogReducer,
         login: loginReducer,
-        admin: adminReducer
+        admin: adminReducer,
+        logout: logoutReducer,
 
     },
 })

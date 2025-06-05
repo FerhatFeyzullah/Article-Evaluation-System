@@ -88,7 +88,7 @@ function ArticleInquiry() {
 
                 </div>
                 <div>
-                    <Button variant='contained' onClick={handleSubmit}>
+                    <Button variant='contained' onClick={handleSubmit} sx={{ textTransform: 'none' }}>
                         Sorgula
                     </Button>
                 </div>

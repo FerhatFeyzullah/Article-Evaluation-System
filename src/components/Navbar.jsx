@@ -3,6 +3,8 @@ import AppBar from '@mui/material/AppBar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { LogoutPost } from '../redux/slices/logoutSlice';
 
 
 function Navbar() {
@@ -10,20 +12,26 @@ function Navbar() {
 
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch();
 
-    const isOnUploadArticlePage = location.pathname !== '/makalesistemi';
-    const isOnInquiryPage = location.pathname !== '/makaledurumsorgulama' && location.pathname !== '/girisyap' && location.pathname !== '/kaydol';
-    const isOnRegisterPage = location.pathname !== '/kaydol';
-    const isOnLoginPage = location.pathname !== '/girisyap';
+    const LogoutFromSystem = () => {
+        dispatch(LogoutPost());
+        navigate('/makalesistemi')
+    }
+
+    const isOnUploadArticlePage = location.pathname == '/makaledurumsorgulama';
+    const isOnInquiryPage = location.pathname == '/makalesistemi';
+    const isOnRegisterPage = location.pathname == '/makalesistemi' || location.pathname == '/makaledurumsorgulama';
+    const isOnLoginPage = location.pathname == '/makalesistemi' || location.pathname == '/makaledurumsorgulama';
+    const isOnAdminOrJudgePage = location.pathname == '/yonetici' || location.pathname == '/degerlendirici';
 
     return (
         <div >
             <AppBar position="static" sx={{ backgroundColor: 'rgb(39, 88, 88)' }}>
                 <div className='navbar-main'>
-                    <div>
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            Makale Değerlendirme Sistemi
-                        </Typography>
+                    <div style={{ width: "500px" }}>
+
+                        <h2>Makale Değerlendirme Sistemi</h2>
                     </div>
 
                     <div className='navbar-buttons'>
@@ -31,7 +39,7 @@ function Navbar() {
                             {
                                 isOnInquiryPage
                                 &&
-                                <Button variant='contained' sx={{ backgroundColor: 'rgb(207, 192, 58)' }}
+                                <Button variant='contained' sx={{ backgroundColor: 'rgb(207, 192, 58)', textTransform: 'none' }}
                                     onClick={() => navigate('/makaledurumsorgulama')}
                                 >Makale Durum Takibi
                                 </Button>
@@ -39,7 +47,7 @@ function Navbar() {
                             {
                                 isOnUploadArticlePage
                                 &&
-                                <Button variant='contained' sx={{ backgroundColor: 'rgb(207, 192, 58)' }}
+                                <Button variant='contained' sx={{ backgroundColor: 'rgb(207, 192, 58)', textTransform: 'none' }}
                                     onClick={() => navigate('/makalesistemi')}
                                 >Makale Yükleme
                                 </Button>
@@ -50,7 +58,7 @@ function Navbar() {
                             {
                                 isOnLoginPage
                                 &&
-                                <Button variant='contained' sx={{ marginRight: '15px', backgroundColor: 'rgb(34, 83, 53)' }}
+                                <Button variant='contained' sx={{ marginRight: '15px', backgroundColor: 'rgb(34, 83, 53)', textTransform: 'none' }}
                                     onClick={() => navigate('/girisyap')} >
                                     Giriş Yap
                                 </Button>
@@ -59,10 +67,19 @@ function Navbar() {
                             {
                                 isOnRegisterPage
                                 &&
-                                <Button variant='contained' sx={{ marginRight: '15px', backgroundColor: 'rgb(20, 45, 116)' }}
+                                <Button variant='contained' sx={{ marginRight: '15px', backgroundColor: 'rgb(20, 45, 116)', textTransform: 'none' }}
                                     onClick={() => navigate('/kaydol')} >
                                     Kaydol
                                 </Button>
+                            }
+                            {
+                                isOnAdminOrJudgePage
+                                &&
+                                <Button variant='contained' sx={{ marginRight: '15px', backgroundColor: 'rgb(20, 45, 116)', textTransform: 'none' }}
+                                    onClick={LogoutFromSystem} >
+                                    Çıkış Yap
+                                </Button>
+
                             }
 
                         </div>

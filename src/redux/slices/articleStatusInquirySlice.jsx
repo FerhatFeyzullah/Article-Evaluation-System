@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+import axios from '../../api/axios'
 
-const BASE_URL = 'https://localhost:7247/api/'
 
 const initialState = {
     article: {},
@@ -11,7 +10,7 @@ const initialState = {
 }
 
 export const GetArticleInquiry = createAsyncThunk('ArticleInquiry', async (data) => {
-    var response = await axios.get(`${BASE_URL}articles/GetArticleByIdAndWriter`, {
+    var response = await axios.get('articles/GetArticleByIdAndWriter', {
         params: {
             fileName: data.fileName,
             email: data.email

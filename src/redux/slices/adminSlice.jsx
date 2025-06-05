@@ -1,26 +1,38 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+import axios from '../../api/axios'
 
-const BASE_URL = 'https://localhost:7247/api/'
 
 const initialState = {
     articles: [],
+    selectedArticle: {},
     judges: [],
     loading: false,
     rejectedAlert: false,
-
+    assignJudgeDialog: false,
 }
 
 export const GetAllArticles = createAsyncThunk('articles', async () => {
-    var response = await axios.get(`${BASE_URL}articles/GetAllArticles`)
+    var response = await axios.get('articles/GetAllArticles')
+    return response.data;
+})
+
+export const GetArticleById = createAsyncThunk('getArticle', async (articleId) => {
+    var response = await axios.get(`articles/GetArticleById${articleId}`);
     return response.data;
 })
 
 export const GetAllJudges = createAsyncThunk('judges', async () => {
-    var response = await axios.get(`${BASE_URL}users/GetAllJudges`, {
-        withCredentials: true
-    })
+    var response = await axios.get('users/GetAllJudges')
     return response.data;
+})
+
+export const AssignJudgeToArticle = createAsyncThunk('assignJudge', async (data) => {
+    await axios.put('/articles/AssignJudgeToArticle', null, {
+        params: {
+            articleId: data.articleId,
+            judgeId: data.judgeId
+        }
+    })
 })
 
 
@@ -31,6 +43,14 @@ export const adminSlice = createSlice({
     reducers: {
         adminRejectedAlertChange: (state) => {
             state.rejectedAlert = !state.rejectedAlert;
+        },
+
+        setSelectedArticle: (state, action) => {
+            state.selectedArticle = action.payload;
+        },
+
+        assignJudgeDialogChange: (state) => {
+            state.assignJudgeDialog = !state.assignJudgeDialog;
         }
 
     },
@@ -46,6 +66,12 @@ export const adminSlice = createSlice({
             state.loading = false;
         });
 
+
+        builder.addCase(GetArticleById.fulfilled, (state, action) => {
+            state.selectedArticle = action.payload;
+        });
+
+
         builder.addCase(GetAllJudges.pending, (state) => {
             state.loading = true;
         });
@@ -60,6 +86,6 @@ export const adminSlice = createSlice({
 
 })
 
-export const { } = adminSlice.actions
+export const { setSelectedArticle, adminRejectedAlertChange, assignJudgeDialogChange } = adminSlice.actions
 
 export default adminSlice.reducer

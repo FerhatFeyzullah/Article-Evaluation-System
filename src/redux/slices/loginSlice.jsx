@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+import axios from '../../api/axios'
 
-const BASE_URL = 'https://localhost:7247/api/'
 
 const initialState = {
     token: "",
@@ -11,9 +10,9 @@ const initialState = {
 }
 
 export const LoginPost = createAsyncThunk('login', async (data) => {
-    var response = await axios.post(`${BASE_URL}registers/login`, data, {
-        withCredentials: true
-    })
+    var response = await axios.post('registers/login', data
+
+    )
     return response.data.token;
 })
 
@@ -32,6 +31,7 @@ export const loginSlice = createSlice({
             builder.addCase(LoginPost.fulfilled, (state, action) => {
                 state.loading = false;
                 state.token = action.payload;
+                localStorage.setItem("token", action.payload);
             }),
             builder.addCase(LoginPost.rejected, (state) => {
                 state.loading = false;

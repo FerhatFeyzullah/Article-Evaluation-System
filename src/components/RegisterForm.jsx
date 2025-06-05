@@ -78,8 +78,8 @@ function Register() {
                     <div className='register-buttons-div'>
                         <div>
                             <Tabs value={value} onChange={handleChange} >
-                                <Tab value={0} label="Giriş Yap" onClick={() => navigate('/girisyap')} />
-                                <Tab value={1} label="Kaydol" onClick={() => navigate('/kaydol')} />
+                                <Tab value={0} label="GİRİŞ YAP" onClick={() => navigate('/girisyap')} sx={{ textTransform: 'none' }} />
+                                <Tab value={1} label="KAYDOL" onClick={() => navigate('/kaydol')} sx={{ textTransform: 'none' }} />
                             </Tabs>
                         </div>
                     </div>

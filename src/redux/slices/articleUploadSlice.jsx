@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+import axios from '../../api/axios'
 
-const BASE_URL = 'https://localhost:7247/api/'
 
 const initialState = {
     tracingKey: "",
@@ -11,7 +10,7 @@ const initialState = {
 }
 
 export const PostUploadArticle = createAsyncThunk('UploadArticle', async (data) => {
-    const response = await axios.post(`${BASE_URL}articles/upload`, data);
+    const response = await axios.post('articles/upload', data);
     return response.data;
 })
 

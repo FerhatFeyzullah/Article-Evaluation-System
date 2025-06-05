@@ -1,0 +1,9 @@
+.article-detail-card {
+
+    maxWidth: 500px;
+    padding: 50px 30px;
+    border: 1px solid rgb(228, 219, 219);
+    box-shadow: 10px 10px 5px lightblue;
+    border-radius: 5px;
+    background-color: whitesmoke;
+}

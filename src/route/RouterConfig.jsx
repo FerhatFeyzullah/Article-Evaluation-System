@@ -6,6 +6,7 @@ import Register from '../pages/Register'
 import Login from '../pages/Login'
 import Admin from '../pages/Admin'
 import Judge from '../pages/Judge'
+import ArticleDetails from '../pages/ArticleDetails'
 
 
 
@@ -25,6 +26,8 @@ function RouterConfig() {
 
             <Route path='/yonetici' element={<Admin />} />
             <Route path='/degerlendirici' element={<Judge />} />
+
+            <Route path='/makale-detay/:articleId' element={<ArticleDetails />} />
 
         </Routes>
     )

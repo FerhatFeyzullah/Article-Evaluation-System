@@ -123,7 +123,7 @@ function ArticleUpload() {
         </div>
 
         <div className="file-input" style={{ display: 'flex', alignItems: 'center', marginTop: '15px' }}>
-          <Button variant="contained" component="label" sx={{ width: '120px', marginRight: '10px' }}>
+          <Button variant="contained" component="label" sx={{ width: '120px', marginRight: '10px', textTransform: 'none' }}>
             Dosya Seç
             <input type="file" hidden accept=".pdf" onChange={handleFileChange} />
           </Button>
@@ -149,6 +149,7 @@ function ArticleUpload() {
           endIcon={<SendIcon />}
           sx={{ backgroundColor: 'rgb(27, 138, 36)', marginTop: '20px' }}
           onClick={handleSubmit}
+          fullWidth
         >
           Gönder
         </Button>
