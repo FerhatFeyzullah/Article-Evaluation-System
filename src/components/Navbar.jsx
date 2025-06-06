@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AppBar from '@mui/material/AppBar';
-import Typography from '@mui/material/Typography';
+import axiosInstance from '../api/axios';
 import Button from '@mui/material/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { LogoutPost } from '../redux/slices/logoutSlice';
+import { logoutDeleteToken } from '../redux/slices/loginSlice'
+
 
 
 function Navbar() {
@@ -14,10 +16,15 @@ function Navbar() {
     const location = useLocation();
     const dispatch = useDispatch();
 
-    const LogoutFromSystem = () => {
-        dispatch(LogoutPost());
-        navigate('/makalesistemi')
+    const LogoutFromSystem = async () => {
+        await dispatch(LogoutPost());
+        localStorage.removeItem("token");
+        //axiosInstance.defaults.headers.common['Authorization'] = '';
+        dispatch(logoutDeleteToken());
+        //document.cookie = '';
+        navigate('/makalesistemi');
     }
+
 
     const isOnUploadArticlePage = location.pathname == '/makaledurumsorgulama';
     const isOnInquiryPage = location.pathname == '/makalesistemi';

@@ -22,6 +22,9 @@ export const loginSlice = createSlice({
     reducers: {
         loginRejectedAlertChange: (state) => {
             state.rejectedAlert = !state.rejectedAlert;
+        },
+        logoutDeleteToken: (state) => {
+            state.token = "";
         }
     },
     extraReducers: (builder) => {
@@ -42,6 +45,6 @@ export const loginSlice = createSlice({
 
 })
 
-export const { loginRejectedAlertChange } = loginSlice.actions
+export const { loginRejectedAlertChange, logoutDeleteToken } = loginSlice.actions
 
 export default loginSlice.reducer

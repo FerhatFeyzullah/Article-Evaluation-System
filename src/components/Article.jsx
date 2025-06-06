@@ -13,12 +13,12 @@ function Article({ article }) {
     const { articleId, judgeStatus, title, writerEmail } = article;
 
     return (
-        <div className='article-card'>
+        <div className='article-card' style={{ backgroundColor: judgeStatus ? 'rgba(11, 134, 29, 0.74)' : 'rgba(104, 8, 11, 0.82)' }}>
             <CardContent>
-                <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+                <Typography variant="h5" component="div">
                     {title}
                 </Typography>
-                <Typography variant="h5" component="div">
+                <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>
                     {writerEmail}
                 </Typography>
                 {judgeStatus
@@ -34,7 +34,7 @@ function Article({ article }) {
 
             </CardContent>
             <CardActions>
-                <Button size="small" onClick={() => navigate('/makale-detay/' + articleId)}>Detayına Git</Button>
+                <Button size="small" variant='contained' sx={{ backgroundColor: 'whitesmoke', color: 'black', textTransform: 'none' }} onClick={() => navigate('/makale-detay/' + articleId)}>DETAYINA GİT</Button>
             </CardActions>
         </div>
     )

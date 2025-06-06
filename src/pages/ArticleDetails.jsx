@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -16,6 +16,7 @@ function ArticleDetails() {
 
     const dispatch = useDispatch();
     const { articleId } = useParams();
+    const navigate = useNavigate();
 
     const { articles, selectedArticle } = useSelector(store => store.admin);
     const { articleStatus, judgeStatus, judge, title, writerEmail, reasonForEditing } = selectedArticle;
@@ -36,6 +37,12 @@ function ArticleDetails() {
     return (
         <div>
             <Navbar />
+            <div>
+                <Button variant='outlined' sx={{ textTransform: 'none', margin: '10px' }} onClick={() => navigate('/yonetici')}>
+                    TÜM MAKALELER
+                </Button>
+            </div>
+
             <div className='flex-row' style={{ height: '100vh' }}>
                 <div className='article-detail-card'>
                     <CardContent>
