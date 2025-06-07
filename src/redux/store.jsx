@@ -6,6 +6,7 @@ import dilaogReducer from './slices/dialogSlice'
 import loginReducer from './slices/loginSlice'
 import adminReducer from './slices/adminSlice'
 import logoutReducer from './slices/logoutSlice'
+import judgeReducer from './slices/judgeSlice'
 
 export const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
         login: loginReducer,
         admin: adminReducer,
         logout: logoutReducer,
+        judge: judgeReducer,
 
     },
 })

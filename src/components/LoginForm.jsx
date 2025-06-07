@@ -8,11 +8,16 @@ import { schema } from '../schemas/LoginSchema'
 import { useDispatch, useSelector } from 'react-redux';
 import { LoginPost } from '../redux/slices/loginSlice';
 import { jwtDecode } from "jwt-decode";
+import { setJudgeId } from '../redux/slices/judgeSlice';
 
 
 function LoginForm() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const SetJudgeId = (id) => {
+        dispatch(setJudgeId(id));
+    }
 
     const { token } = useSelector(Store => Store.login)
 
@@ -21,14 +26,16 @@ function LoginForm() {
             try {
                 const decoded = jwtDecode(token);
                 const role = decoded.role || decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-                console.log(role)
+                const judgeId = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
+
+                SetJudgeId(judgeId);
 
                 if (role === "Admin") {
                     navigate('/yonetici');
                 }
 
                 else if (role === "Judge") {
-                    navigate("/degerlendirici");
+                    navigate("/degerlendirici/" + judgeId);
                 }
 
                 else {
