@@ -79,15 +79,16 @@ function Navbar() {
                                     Kaydol
                                 </Button>
                             }
-                            {
-                                isOnAdminOrJudgePage
-                                &&
+
+                            <div>
                                 <Button variant='contained' sx={{ marginRight: '15px', backgroundColor: 'rgb(20, 45, 116)', textTransform: 'none' }}
                                     onClick={LogoutFromSystem} >
                                     Çıkış Yap
                                 </Button>
+                            </div>
 
-                            }
+
+
 
                         </div>
                     </div>
