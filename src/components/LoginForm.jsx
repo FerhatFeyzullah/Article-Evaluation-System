@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Button, TextField } from '@mui/material'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import '../css/Login.css'
 import { useNavigate } from 'react-router-dom';
 import { schema } from '../schemas/LoginSchema'
@@ -94,10 +98,12 @@ function LoginForm() {
 
     }
 
+    const [show, setShow] = useState(false);
+
 
     return (
         <div>
-            <div className='register-main'>
+            <div className='register-main' style={{ height: '80vh' }}>
                 <div className='register-card'>
                     <div className='register-buttons-div'>
                         <div>
@@ -125,12 +131,31 @@ function LoginForm() {
                             {
                                 errors.password ?
                                     <TextField error variant='standard' size='small' label="Şifre" helperText={errors.password}
-                                        value={password} onChange={(e) => setPassword(e.target.value)} fullWidth />
+                                        value={password} onChange={(e) => setPassword(e.target.value)} fullWidth type={show ? 'text' : 'password'}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton onClick={() => setShow(!show)}>
+                                                        {show ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }} />
                                     :
                                     <TextField label='Şifre' variant='standard' size='small'
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         fullWidth
+                                        type={show ? 'text' : 'password'}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton onClick={() => setShow(!show)}>
+                                                        {show ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }}
                                     />
                             }
                         </div>

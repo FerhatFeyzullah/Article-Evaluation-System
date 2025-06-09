@@ -15,16 +15,16 @@ function ArticleInquiryTable({ tableOpen }) {
     const { title, writerEmail, judgeStatus, judge, articleStatus, reasonForEditing } = article;
 
 
-    // useEffect(() => {
-    //     console.log(article)
-    // }, [article])
+    useEffect(() => {
+        console.log(reasonForEditing)
+    }, [reasonForEditing])
 
     return (
-        <div>
+        <div style={{ marginTop: '20px' }}>
             {
                 tableOpen &&
 
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} sx={{ backgroundColor: 'rgba(179, 171, 171, 0.81)' }}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
@@ -40,30 +40,28 @@ function ArticleInquiryTable({ tableOpen }) {
                             <TableRow>
                                 <TableCell align="left">{title}</TableCell>
                                 <TableCell align="center">{writerEmail}</TableCell>
-                                {
-                                    !judgeStatus ?
-                                        <TableCell align="center">Hakem Ataması Bekliyor</TableCell>
-                                        :
-                                        <TableCell align="center">İnceleniyor</TableCell>
-                                }
-                                {
-                                    !judge ?
-                                        <TableCell align="center">Henüz Atanmadı</TableCell>
-                                        :
-                                        <TableCell align="center">{judge.firstName} {judge.lastName}</TableCell>
-                                }
-                                {
-                                    !judge ?
-                                        <TableCell align="center">Henün İncelenmedi</TableCell>
-                                        :
-                                        <TableCell align="center">İnceleniyor</TableCell>
-                                }
-                                {
-                                    articleStatus ?
-                                        <TableCell align="center"></TableCell>
-                                        :
-                                        <TableCell align="center">{reasonForEditing}</TableCell>
-                                }
+                                <TableCell align="center">
+                                    {!judge ? "Hakem Ataması Bekliyor" : articleStatus === null ? "İnceleniyor" : "Değerlendirme Tamamlandı"}
+                                </TableCell>
+
+                                <TableCell align="center">
+                                    {!judge ? "Henüz Atanmadı" : `${judge.firstName} ${judge.lastName}`}
+                                </TableCell>
+
+                                <TableCell align="center">
+                                    {!judge
+                                        ? "Henüz İncelenmedi"
+                                        : articleStatus === null
+                                            ? "İnceleniyor"
+                                            : articleStatus === true
+                                                ? "Makale Onaylandı"
+                                                : "Makale Onaylanmadı"}
+                                </TableCell>
+
+                                <TableCell align="center">
+                                    {reasonForEditing}
+                                </TableCell>
+
 
                             </TableRow>
                         </TableBody>

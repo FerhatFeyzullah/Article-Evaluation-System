@@ -20,7 +20,7 @@ function ArticleStatusInquiry() {
     }
 
     return (
-        <div>
+        <div className='inquiry-main-div'>
             <Navbar />
             <div className='alert-div'>
                 <RejectedAlert rejectedAlert={rejectedAlert} change={Change} />

@@ -14,6 +14,21 @@ export const GetArticlesForJudge = createAsyncThunk("judgesArticles", async (jud
 
 })
 
+export const GetArticleByIdForJudge = createAsyncThunk('getArticleForJudge', async (articleId) => {
+    var response = await axios.get(`articles/GetArticleById${articleId}`);
+    return response.data;
+})
+
+export const PutArticleStatus = createAsyncThunk("articleState", async (data) => {
+    await axios.put("articles/UpdateArticleStatus", null, {
+        params: {
+            articleId: data.artId,
+            status: data.state,
+            reasonForEditing: data.reason
+        }
+    })
+})
+
 
 export const judgeSlice = createSlice({
     name: 'judge',
@@ -30,7 +45,10 @@ export const judgeSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(GetArticlesForJudge.fulfilled, (state, action) => {
             state.articles = action.payload;
-        })
+        }),
+            builder.addCase(GetArticleByIdForJudge.fulfilled, (state, action) => {
+                state.selectedArticle = action.payload;
+            })
     }
 
 })

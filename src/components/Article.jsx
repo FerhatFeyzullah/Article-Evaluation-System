@@ -10,10 +10,16 @@ function Article({ article }) {
 
     const navigate = useNavigate();
 
-    const { articleId, judgeStatus, title, writerEmail } = article;
+    const { articleId, judgeStatus, title, writerEmail, judge, articleStatus } = article;
 
     return (
-        <div className='article-card' style={{ backgroundColor: judgeStatus ? 'rgba(11, 134, 29, 0.74)' : 'rgba(104, 8, 11, 0.82)' }}>
+        <div className='article-card' style={{
+            backgroundColor: !judge
+                ? 'rgb(51, 37, 37)'
+                : articleStatus === null
+                    ? 'rgb(8, 46, 104)'
+                    : 'rgb(8, 104, 51)'
+        }}>
             <CardContent>
                 <Typography variant="h5" component="div">
                     {title}
@@ -21,16 +27,15 @@ function Article({ article }) {
                 <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>
                     {writerEmail}
                 </Typography>
-                {judgeStatus
-                    ?
-                    <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>
-                        Hakem Atanmış
-                    </Typography>
-                    :
-                    <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>
-                        Hakem Ataması Bekliyor
-                    </Typography>
-                }
+                <Typography>
+                    {
+                        !judge
+                            ? "Hakem Ataması Bekleniyor"
+                            : articleStatus === null
+                                ? "İnceleniyor"
+                                : "Değerlendirme Tamamlandı"
+                    }
+                </Typography>
 
             </CardContent>
             <CardActions>

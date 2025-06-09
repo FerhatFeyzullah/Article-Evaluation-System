@@ -27,7 +27,8 @@ function Register() {
         dispatch(termOk())
     }
     return (
-        <div>
+
+        <div className='register-main-div'>
             <Navbar />
             <div className='alert-div'>
                 <RegisterSuccessAlert />
@@ -37,8 +38,9 @@ function Register() {
 
             <Loading loading={loading} />
             <MyDialog dialog={dialog} closeDialog={closeDialog} termOk={closeDialogAndTermChange} />
-
         </div>
+
+
     )
 }
 

@@ -6,6 +6,8 @@ import RejectedAlert from '../components/Alerts/RejectedAlert'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginRejectedAlertChange } from '../redux/slices/loginSlice'
 
+
+
 function Login() {
 
     const { loading, rejectedAlert } = useSelector(store => store.login)
@@ -16,7 +18,7 @@ function Login() {
     }
 
     return (
-        <div>
+        <div className='login-main-div'>
             <Navbar />
             <div className='alert-div'>
                 <RejectedAlert rejectedAlert={rejectedAlert} change={Change} />

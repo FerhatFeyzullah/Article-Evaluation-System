@@ -7,6 +7,7 @@ import loginReducer from './slices/loginSlice'
 import adminReducer from './slices/adminSlice'
 import logoutReducer from './slices/logoutSlice'
 import judgeReducer from './slices/judgeSlice'
+import messageReducer from './slices/messageSlice'
 
 export const store = configureStore({
     reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
         admin: adminReducer,
         logout: logoutReducer,
         judge: judgeReducer,
+        message: messageReducer,
 
     },
 })

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom'
-import { setSelectedArticle } from '../redux/slices/judgeSlice';
+import { GetArticleByIdForJudge, PutArticleStatus, setSelectedArticle } from '../redux/slices/judgeSlice';
 import Navbar from '../components/Navbar';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -21,27 +21,32 @@ function ArticleReview() {
     const navigate = useNavigate();
     const { articleId } = useParams();
 
-    const { articles, selectedArticle, judgeId } = useSelector(store => store.judge);
-    const { articleStatus, title, writerEmail, reasonForEditing, fileName } = selectedArticle;
+    const { selectedArticle, judgeId } = useSelector(store => store.judge);
+    const { title, writerEmail, fileName } = selectedArticle;
 
     useEffect(() => {
-        if (articles && articleId) {
-            const updated = articles.find(a => a.articleId == articleId);
-            if (updated) {
-                dispatch(setSelectedArticle(updated));
-            }
-        }
-    }, [articles, articleId]);
+        dispatch(GetArticleByIdForJudge(articleId))
+    }, [articleId]);
 
     const [artState, setValue] = useState(false);
     const [editText, setEditText] = useState("");
 
     const handleChange = (event) => {
         setValue(event.target.value === "true");
-        setEditText("");
+        setEditText("Herhangi bir düzenlemeye gerek duyulmamıştır");
 
     };
 
+    const PutState = async () => {
+        const data = {
+            artId: articleId,
+            state: artState,
+            reason: editText
+        }
+
+        await dispatch(PutArticleStatus(data));
+        navigate("/degerlendirici/" + judgeId)
+    }
 
 
 
@@ -56,13 +61,8 @@ function ArticleReview() {
                     </Button>
                 </div>
 
-
-
-
             </div>
-
             <div className='flex-column' >
-
 
                 <div className='iframe'>
                     <iframe
@@ -87,10 +87,10 @@ function ArticleReview() {
                                     Yazar: {writerEmail}
                                 </Typography>
 
-
                             </CardContent>
                             <CardActions>
                                 <Button size="small" variant='contained' color='primary' sx={{ textTransform: 'none' }}
+                                    onClick={PutState}
                                 > İNCELEMEYİ BİTİR</Button>
                             </CardActions>
                         </div>
@@ -100,23 +100,19 @@ function ArticleReview() {
                             {
                                 artState ?
 
-                                    <TextField variant='standard' multiline rows={5} sx={{ width: '300px' }} label='Düzenleme Gerekçesi'
-                                        value={editText} onChange={(e) => setEditText(e.target.value)} />
-                                    :
                                     <TextField variant='standard' multiline rows={5} sx={{ width: '300px' }} label='Düzenleme Gerekçesi' disabled
                                         value={editText} onChange={(e) => setEditText(e.target.value)}
                                     />
-
+                                    :
+                                    <TextField variant='standard' multiline rows={5} sx={{ width: '300px' }} label='Düzenleme Gerekçesi'
+                                        value={editText} onChange={(e) => setEditText(e.target.value)} />
 
                             }
-
-
-
 
                             <FormControl>
                                 <FormLabel>Durum</FormLabel>
                                 <RadioGroup
-                                    value={artState.toString()} // burada string olmalı çünkü MUI string value bekliyor
+                                    value={artState.toString()}
                                     onChange={handleChange}
                                 >
                                     <FormControlLabel value="true" control={<Radio />} label="Geçerli" />
@@ -125,12 +121,8 @@ function ArticleReview() {
                             </FormControl>
                         </div>
                     </div>
-
-
                 </div>
             </div>
-
-
         </div>
     )
 }

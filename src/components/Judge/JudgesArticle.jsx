@@ -33,22 +33,15 @@ function JudgesArticle({ article }) {
                 <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>
                     {writerEmail}
                 </Typography>
-                {
-                    articleStatus === null ? (
-                        <Typography>
-                            Makale Durumu: İncelenmeyi Bekliyor
-                        </Typography>
-                    ) : articleStatus === true ? (
-                        <Typography>
-                            Makale Durumu: Makale Onaylandı
-                        </Typography>
-                    ) : (
-                        <Typography>
-                            Makale Durumu: Makale Onaylanmadı
-                        </Typography>
+                <Typography>
+                    Makale Durumu:{' '}
+                    {articleStatus === null
+                        ? 'İncelemede'
+                        : articleStatus === true
+                            ? 'Onaylandı'
+                            : 'Onaylanmadı'}
+                </Typography>
 
-                    )
-                }
 
             </CardContent>
             <CardActions>

@@ -6,6 +6,7 @@ import SuccessAlert from '../components/Alerts/SuccessAlert'
 import RejectedAlert from '../components/Alerts/RejectedAlert'
 import { useDispatch, useSelector } from 'react-redux'
 import { rejectedAlertChange } from '../redux/slices/articleUploadSlice'
+import '../css/Home.css'
 
 function Home() {
     const dispatch = useDispatch();
@@ -17,7 +18,7 @@ function Home() {
     }
 
     return (
-        <div>
+        <div className='home-main-div'>
             <Navbar />
             <div className='alert-div'>
                 <SuccessAlert />

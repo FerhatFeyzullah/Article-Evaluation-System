@@ -8,6 +8,7 @@ import Admin from '../pages/Admin'
 import Judge from '../pages/Judge'
 import ArticleDetails from '../pages/ArticleDetails'
 import ArticleReview from '../pages/ArticleReview'
+import Contact from '../pages/Contact'
 
 
 
@@ -31,6 +32,8 @@ function RouterConfig() {
             <Route path='/makale-detay/:articleId' element={<ArticleDetails />} />
 
             <Route path='/makale-degerlendirme/:articleId' element={<ArticleReview />} />
+
+            <Route path='/iletisim' element={<Contact />} />
 
         </Routes>
     )

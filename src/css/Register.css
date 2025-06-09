@@ -8,7 +8,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100vh;
+    height: 80vh;
 }
 
 .register-buttons-div {
@@ -23,7 +23,7 @@
     box-shadow: 10px 10px 5px lightblue;
     border-radius: 5px;
     padding: 20px 30px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .register-inputs {
@@ -37,4 +37,12 @@
     justify-content: flex-start;
     margin-bottom: 5px;
 
+}
+
+.register-main-div {
+    background-image: url(../assets/Images/f.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
 }

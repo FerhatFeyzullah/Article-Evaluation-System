@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AppBar from '@mui/material/AppBar';
 import axiosInstance from '../api/axios';
 import Button from '@mui/material/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { LogoutPost } from '../redux/slices/logoutSlice';
 import { logoutDeleteToken } from '../redux/slices/loginSlice'
-
+import { toast } from 'react-toastify';
+import IconButton from '@mui/material/IconButton';
+import EmailIcon from '@mui/icons-material/Email';
+import Badge from '@mui/material/Badge';
+import { changeDrawer, GetUnreadMessageCount } from '../redux/slices/messageSlice';
 
 
 function Navbar() {
@@ -16,25 +20,42 @@ function Navbar() {
     const location = useLocation();
     const dispatch = useDispatch();
 
+    const { unreadCount, messageOpen } = useSelector(store => store.message)
+    const { token } = useSelector(store => store.login);
+
+    useEffect(() => {
+        if (isOnAdminPage) {
+            dispatch(GetUnreadMessageCount());
+        }
+
+    }, [messageOpen, token])
+
     const LogoutFromSystem = async () => {
         await dispatch(LogoutPost());
+        toast.success("Çıkış İşlemi Başarılı");
         localStorage.removeItem("token");
         //axiosInstance.defaults.headers.common['Authorization'] = '';
         dispatch(logoutDeleteToken());
         //document.cookie = '';
         navigate('/makalesistemi');
+
     }
 
 
-    const isOnUploadArticlePage = location.pathname == '/makaledurumsorgulama';
+    const isOnUploadArticlePage = location.pathname == '/makaledurumsorgulama' || location.pathname == '/girisyap'
+        ||
+        location.pathname == '/kaydol' || location.pathname == '/iletisim';
+
     const isOnInquiryPage = location.pathname == '/makalesistemi';
     const isOnRegisterPage = location.pathname == '/makalesistemi' || location.pathname == '/makaledurumsorgulama';
     const isOnLoginPage = location.pathname == '/makalesistemi' || location.pathname == '/makaledurumsorgulama';
-    const isOnAdminOrJudgePage = location.pathname == '/yonetici' || location.pathname == '/degerlendirici';
+    const isOnAdminOrJudgePage = location.pathname == '/yonetici' || location.pathname.startsWith('/degerlendirici');
+    const isOnAdminPage = location.pathname == '/yonetici';
+
 
     return (
         <div >
-            <AppBar position="static" sx={{ backgroundColor: 'rgb(39, 88, 88)' }}>
+            <AppBar position="static" sx={{ backgroundColor: 'rgba(60, 82, 82, 0.73)' }}>
                 <div className='navbar-main'>
                     <div style={{ width: "500px" }}>
 
@@ -62,6 +83,19 @@ function Navbar() {
 
                         </div>
                         <div>
+
+                        </div>
+                        <div>
+                            {
+                                (isOnUploadArticlePage || isOnInquiryPage)
+                                &&
+                                <Button variant='contained' sx={{ marginRight: '15px', backgroundColor: 'rgb(71, 74, 76)', textTransform: 'none' }}
+                                    onClick={() => navigate('/iletisim')} >
+                                    İletişim
+                                </Button>
+
+                            }
+
                             {
                                 isOnLoginPage
                                 &&
@@ -80,12 +114,29 @@ function Navbar() {
                                 </Button>
                             }
 
-                            <div>
-                                <Button variant='contained' sx={{ marginRight: '15px', backgroundColor: 'rgb(20, 45, 116)', textTransform: 'none' }}
+                            {isOnAdminPage
+                                &&
+
+                                <IconButton onClick={() => dispatch(changeDrawer())}>
+                                    <Badge badgeContent={unreadCount} color='primary'>
+                                        <EmailIcon sx={{ fontSize: '30px' }} />
+                                    </Badge>
+
+                                </IconButton>
+                            }
+
+                            {
+                                isOnAdminOrJudgePage
+                                &&
+                                <Button variant='contained' sx={{ marginLeft: '20px', marginRight: '15px', backgroundColor: 'rgb(20, 45, 116)', textTransform: 'none' }}
                                     onClick={LogoutFromSystem} >
                                     Çıkış Yap
                                 </Button>
-                            </div>
+                            }
+
+
+
+
 
 
 

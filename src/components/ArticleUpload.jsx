@@ -81,7 +81,7 @@ function ArticleUpload() {
 
         <div style={{ width: '100%' }}>
           {
-            errors.email ?
+            errors.title ?
               <TextField
                 error
                 size='small'

@@ -54,46 +54,32 @@ function ArticleDetails() {
                             Makale Sahibi Email: {writerEmail}
                         </Typography>
                         <br />
-                        {judgeStatus
-                            ?
-                            <Typography >
-                                Makaleyi Değerlendiren Hakem: {judge.firstName} {judge.lastName}
-                            </Typography>
-                            :
-                            <Typography >
-                                Makaleyi Değerlendiren Hakem:
-                            </Typography>
-                        }
-                        <br />
-                        {
-                            judge
-                                ?
-                                <Typography >
-                                    Güncel Durum: İnceleniyor
-                                </Typography>
-                                :
-                                <Typography >
-                                    Güncel Durum: Hakem Ataması Bekleniyor
-                                </Typography>
+                        <Typography>
+                            Makaleyi Değerlendiren Hakem: {judgeStatus ? `${judge.firstName} ${judge.lastName}` : ""}
+                        </Typography>
 
-                        }
                         <br />
-                        {
-                            articleStatus === null ? (
-                                <Typography>
-                                    Makale Durumu: Hakem Değerlendirmesi Devam Ediyor
-                                </Typography>
-                            ) : articleStatus === true ? (
-                                <Typography>
-                                    Makale Durumu: Makale Onaylandı
-                                </Typography>
-                            ) : (
-                                <Typography>
-                                    Makale Durumu: Makale Onaylanmadı
-                                </Typography>
+                        <Typography>
+                            {
+                                !judge
+                                    ? "Güncel Durum: Hakem Ataması Bekleniyor"
+                                    : articleStatus === null
+                                        ? "Güncel Durum: İnceleniyor"
+                                        : "Güncel Durum: Değerlendirme Tamamlandı"
+                            }
+                        </Typography>
 
-                            )
-                        }
+                        <br />
+                        <Typography>
+                            {
+                                articleStatus === null
+                                    ? "Makale Durumu: Hakem Değerlendirmesi Devam Ediyor"
+                                    : articleStatus === true
+                                        ? "Makale Durumu: Makale Onaylandı"
+                                        : "Makale Durumu: Makale Onaylanmadı"
+                            }
+                        </Typography>
+
                         <br />
                         {
                             articleStatus === false &&

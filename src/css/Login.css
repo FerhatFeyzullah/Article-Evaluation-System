@@ -24,6 +24,7 @@
     border-radius: 5px;
     padding: 20px 30px;
     margin-bottom: 30px;
+    background-color: whitesmoke;
 }
 
 .register-inputs {
@@ -36,5 +37,14 @@
     align-items: center;
     justify-content: flex-start;
     margin-bottom: 5px;
+
+}
+
+.login-main-div {
+    background-image: url(../assets/Images/k.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
 
 }

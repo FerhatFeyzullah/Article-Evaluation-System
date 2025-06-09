@@ -3,6 +3,10 @@ import { Button, TextField } from '@mui/material'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import '../css/Register.css'
 import { useNavigate } from 'react-router-dom';
 import { schema } from '../schemas/RegisterSchema'
@@ -28,6 +32,7 @@ function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPass, setConfrimPass] = useState('');
+    const [show, setShow] = useState(false);
     const [errors, setErrors] = useState({})
 
     const formClear = () => {
@@ -73,7 +78,7 @@ function Register() {
 
     return (
         <div>
-            <div className='register-main'>
+            <div className='register-main' style={{ height: '80vh' }}>
                 <div className='register-card'>
                     <div className='register-buttons-div'>
                         <div>
@@ -140,12 +145,31 @@ function Register() {
                             {
                                 errors.password ?
                                     <TextField error variant='standard' size='small' label="Şifre" helperText={errors.password}
-                                        value={password} onChange={(e) => setPassword(e.target.value)} fullWidth />
+                                        value={password} onChange={(e) => setPassword(e.target.value)} fullWidth type={show ? 'text' : 'password'}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton onClick={() => setShow(!show)}>
+                                                        {show ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }} />
                                     :
                                     <TextField label='Şifre' variant='standard' size='small'
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         fullWidth
+                                        type={show ? 'text' : 'password'}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton onClick={() => setShow(!show)}>
+                                                        {show ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }}
                                     />
                             }
                         </div>
@@ -153,12 +177,31 @@ function Register() {
                             {
                                 errors.confirmPass ?
                                     <TextField error variant='standard' size='small' label="Şifre Tekrarı" helperText={errors.confirmPass}
-                                        value={confirmPass} onChange={(e) => setConfrimPass(e.target.value)} fullWidth />
+                                        value={confirmPass} onChange={(e) => setConfrimPass(e.target.value)} fullWidth type={show ? 'text' : 'password'}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton onClick={() => setShow(!show)}>
+                                                        {show ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }} />
                                     :
                                     <TextField label='Şifre Tekrarı' variant='standard' size='small'
                                         value={confirmPass}
                                         onChange={(e) => setConfrimPass(e.target.value)}
                                         fullWidth
+                                        type={show ? 'text' : 'password'}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton onClick={() => setShow(!show)}>
+                                                        {show ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }}
                                     />
                             }
                         </div>

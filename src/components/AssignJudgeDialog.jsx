@@ -54,7 +54,7 @@ function AssignJudgeDialog({ articleId, onAssignComplete }) {
             >
                 <DialogTitle>{"Hakem Atama"}</DialogTitle>
                 <DialogContent>
-                    <TextField label='Hakemler' select sx={{ width: '400px' }} value={hakemId} onChange={(e) => setHakemId(e.target.value)} >
+                    <TextField label='Hakemler' select variant='filled' sx={{ width: '400px' }} value={hakemId} onChange={(e) => setHakemId(e.target.value)} >
                         {
                             judges && judges.map((judge) => (
                                 <MenuItem value={judge.id}>{judge.firstName} {judge.lastName}</MenuItem>
@@ -63,7 +63,7 @@ function AssignJudgeDialog({ articleId, onAssignComplete }) {
                     </TextField>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={Assign}>Agree</Button>
+                    <Button onClick={Assign}>Ata</Button>
                 </DialogActions>
             </Dialog>
         </div>
