@@ -4,7 +4,7 @@ import CreateMessage from '../components/CreateMessage'
 
 function Contact() {
     return (
-        <div>
+        <div className='contact-main-div'>
 
             <Navbar />
             <CreateMessage />

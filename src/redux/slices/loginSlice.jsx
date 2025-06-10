@@ -3,7 +3,7 @@ import axios from '../../api/axios'
 
 
 const initialState = {
-    token: "",
+    token: localStorage.getItem("token") || null,
     loading: false,
     rejectedAlert: false,
 
@@ -25,6 +25,7 @@ export const loginSlice = createSlice({
         },
         logoutDeleteToken: (state) => {
             state.token = "";
+            localStorage.removeItem("token");
         }
     },
     extraReducers: (builder) => {

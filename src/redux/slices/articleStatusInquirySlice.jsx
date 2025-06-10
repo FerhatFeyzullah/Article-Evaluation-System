@@ -16,7 +16,8 @@ export const GetArticleInquiry = createAsyncThunk('ArticleInquiry', async (data)
             email: data.email
         }
     });
-    return response.data;
+
+    return response.data
 })
 
 export const articleStatusInquirySlice = createSlice({
@@ -26,6 +27,9 @@ export const articleStatusInquirySlice = createSlice({
         InquiryRejectedAlertChange: (state) => {
             state.rejectedAlert = !state.rejectedAlert;
 
+        },
+        clearArticle: (state) => {
+            state.article = {};
         }
     },
     extraReducers: (builder) => {
@@ -37,7 +41,7 @@ export const articleStatusInquirySlice = createSlice({
             builder.addCase(GetArticleInquiry.fulfilled, (state, action) => {
                 state.article = action.payload;
                 state.loading = !state.loading;
-                state.tableOpen = !state.tableOpen;
+                state.tableOpen = true;
             }),
             builder.addCase(GetArticleInquiry.rejected, (state) => {
                 state.loading = !state.loading;
@@ -47,6 +51,6 @@ export const articleStatusInquirySlice = createSlice({
 
 })
 
-export const { InquiryRejectedAlertChange } = articleStatusInquirySlice.actions
+export const { InquiryRejectedAlertChange, clearArticle } = articleStatusInquirySlice.actions
 
 export default articleStatusInquirySlice.reducer

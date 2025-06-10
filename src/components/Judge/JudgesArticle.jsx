@@ -17,12 +17,12 @@ function JudgesArticle({ article }) {
         <div className='article-card' style={{
             backgroundColor:
                 articleStatus === null ? (
-                    'rgba(51, 49, 50, 0.82)'
+                    'rgba(51, 49, 50, 0.88)'
                 ) : articleStatus === false ? (
-                    'rgba(104, 8, 11, 0.82)'
+                    'rgba(104, 8, 11, 0.86)'
                 ) :
                     (
-                        'rgba(11, 134, 29, 0.74)'
+                        'rgba(11, 134, 29, 0.85)'
                     )
 
         }}>

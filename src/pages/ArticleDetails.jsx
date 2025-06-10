@@ -35,7 +35,7 @@ function ArticleDetails() {
 
 
     return (
-        <div>
+        <div className='article-details-main-div'>
             <Navbar />
             <div>
                 <Button variant='outlined' sx={{ textTransform: 'none', margin: '10px' }} onClick={() => navigate('/yonetici')}>
@@ -43,7 +43,7 @@ function ArticleDetails() {
                 </Button>
             </div>
 
-            <div className='flex-row' style={{ height: '100vh' }}>
+            <div className='flex-row'>
                 <div className='article-detail-card'>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">

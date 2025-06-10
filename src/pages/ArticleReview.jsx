@@ -36,6 +36,11 @@ function ArticleReview() {
         setEditText("Herhangi bir düzenlemeye gerek duyulmamıştır");
 
     };
+    useEffect(() => {
+        if (!artState) {
+            setEditText("");
+        }
+    }, [artState])
 
     const PutState = async () => {
         const data = {
@@ -51,12 +56,12 @@ function ArticleReview() {
 
 
     return (
-        <div>
+        <div className='article-review-main-div'>
             <Navbar />
             <div>
 
                 <div>
-                    <Button variant='outlined' sx={{ textTransform: 'none', margin: '10px' }} onClick={() => navigate("/degerlendirici/" + judgeId)}>
+                    <Button variant='contained' sx={{ textTransform: 'none', margin: '10px' }} onClick={() => navigate("/degerlendirici/" + judgeId)}>
                         TÜM MAKALELER
                     </Button>
                 </div>

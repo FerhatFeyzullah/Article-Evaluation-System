@@ -1,10 +1,18 @@
 .article-detail-card {
 
     max-width: 500px;
-    padding: 50px 30px;
+    padding: 40px 30px;
     border: 1px solid rgb(228, 219, 219);
     box-shadow: 10px 10px 5px lightblue;
     border-radius: 5px;
-    background-color: whitesmoke;
+    background-color: rgba(245, 245, 245, 0.945);
     margin-bottom: 70px;
+}
+
+.article-details-main-div {
+    background-image: url(../assets/Images/p.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
 }

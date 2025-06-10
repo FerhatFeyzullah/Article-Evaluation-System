@@ -9,6 +9,9 @@ import Judge from '../pages/Judge'
 import ArticleDetails from '../pages/ArticleDetails'
 import ArticleReview from '../pages/ArticleReview'
 import Contact from '../pages/Contact'
+import PrivateRoute from './PrivateRoute'
+import AccessDenied from '../pages/AccessDenied'
+import NotFound from '../pages/NotFound'
 
 
 
@@ -26,14 +29,33 @@ function RouterConfig() {
             <Route path='/kaydol' element={<Register />} />
             <Route path='/girisyap' element={<Login />} />
 
-            <Route path='/yonetici' element={<Admin />} />
-            <Route path='/degerlendirici/:judgeId' element={<Judge />} />
+            <Route path='/yonetici' element={
+                <PrivateRoute allowedRoles={['Admin']}>
+                    <Admin />
+                </PrivateRoute>
+            } />
 
-            <Route path='/makale-detay/:articleId' element={<ArticleDetails />} />
+            <Route path='/degerlendirici/:judgeId' element={
+                <PrivateRoute allowedRoles={['Judge']}>
+                    <Judge />
+                </PrivateRoute>
+            } />
 
-            <Route path='/makale-degerlendirme/:articleId' element={<ArticleReview />} />
+            <Route path='/makale-detay/:articleId' element={
+                <PrivateRoute allowedRoles={['Admin']}>
+                    <ArticleDetails />
+                </PrivateRoute>
+            } />
+
+            <Route path='/makale-degerlendirme/:articleId' element={
+                <PrivateRoute allowedRoles={['Judge']}>
+                    <ArticleReview />
+                </PrivateRoute>
+            } />
 
             <Route path='/iletisim' element={<Contact />} />
+            <Route path='/yetkisiz-erisim' element={<AccessDenied />} />
+            <Route path='*' element={<NotFound />} />
 
         </Routes>
     )

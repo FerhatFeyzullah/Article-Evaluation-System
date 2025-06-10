@@ -8,7 +8,7 @@ function Judge() {
     const { judgeId } = useParams();
     console.log(judgeId)
     return (
-        <div>
+        <div className='judge-main-div'>
             <Navbar />
             <JudgeArticleTable judgeId={judgeId} />
 

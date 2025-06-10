@@ -9,11 +9,10 @@ import { InquiryRejectedAlertChange } from '../redux/slices/articleStatusInquiry
 import '../css/Home.css'
 
 
-
 function ArticleStatusInquiry() {
     const dispatch = useDispatch();
 
-    const { loading, rejectedAlert, tableOpen } = useSelector(store => store.articleInquiry)
+    const { loading, rejectedAlert } = useSelector(store => store.articleInquiry)
 
     const Change = () => {
         dispatch(InquiryRejectedAlertChange());
@@ -28,7 +27,7 @@ function ArticleStatusInquiry() {
 
             <ArticleInquiry />
 
-            <ArticleInquiryTable tableOpen={tableOpen} />
+            <ArticleInquiryTable />
 
             <Loading loading={loading} />
 

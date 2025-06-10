@@ -46,9 +46,41 @@ body {
 }
 
 .admin-main-div {
-    background-image: url(./assets/Images/n.jpg);
+    background-image: url(./assets/Images/r.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
+    height: 100%;
+}
+
+.judge-main-div {
+    background-image: url(./assets/Images/r.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.contact-main-div {
+    background-image: url(./assets/Images/y.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.access-denied-main-div {
+    background-image: url(./assets/Images/access-denied.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 100vh;
+}
+
+.not-found-main-div {
+    background-image: url(./assets/Images/not-found.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
     background-position: center;
     height: 100vh;
 }

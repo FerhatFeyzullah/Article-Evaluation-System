@@ -15,10 +15,10 @@ function Article({ article }) {
     return (
         <div className='article-card' style={{
             backgroundColor: !judge
-                ? 'rgb(51, 37, 37)'
+                ? 'rgba(105, 94, 94, 0.89)'
                 : articleStatus === null
-                    ? 'rgb(8, 46, 104)'
-                    : 'rgb(8, 104, 51)'
+                    ? 'rgba(8, 46, 104, 0.86)'
+                    : 'rgba(8, 104, 51, 0.9)'
         }}>
             <CardContent>
                 <Typography variant="h5" component="div">

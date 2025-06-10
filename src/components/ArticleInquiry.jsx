@@ -3,7 +3,7 @@ import { schema } from '../schemas/ArticleStatusInquirySchema'
 import React, { useEffect, useState } from 'react'
 import '../css/ArticleInquiry.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { GetArticleInquiry } from '../redux/slices/articleStatusInquirySlice';
+import { clearArticle, GetArticleInquiry } from '../redux/slices/articleStatusInquirySlice';
 
 function ArticleInquiry() {
     const [tracingKey, setTracingKey] = useState('');
@@ -39,9 +39,6 @@ function ArticleInquiry() {
             })
             setErrors(errObj)
         }
-
-
-
     }
     return (
 
@@ -85,7 +82,6 @@ function ArticleInquiry() {
                             />
                     }
 
-
                 </div>
                 <div>
                     <Button variant='contained' onClick={handleSubmit} sx={{ textTransform: 'none' }}>
@@ -94,7 +90,6 @@ function ArticleInquiry() {
                 </div>
             </div>
         </div>
-
     )
 
 }
