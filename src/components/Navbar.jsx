@@ -10,7 +10,9 @@ import { toast } from 'react-toastify';
 import IconButton from '@mui/material/IconButton';
 import EmailIcon from '@mui/icons-material/Email';
 import Badge from '@mui/material/Badge';
+import { BsClipboardDataFill } from "react-icons/bs";
 import { changeDrawer, GetUnreadMessageCount } from '../redux/slices/messageSlice';
+import { changeLogDrawer, GetAllLogs } from '../redux/slices/logSlice';
 
 
 function Navbar() {
@@ -21,6 +23,7 @@ function Navbar() {
     const dispatch = useDispatch();
 
     const { unreadCount, messageOpen } = useSelector(store => store.message)
+    const { logDrawerOpen } = useSelector(store => store.message)
     const { token } = useSelector(store => store.login);
 
     useEffect(() => {
@@ -29,6 +32,13 @@ function Navbar() {
         }
 
     }, [messageOpen, token])
+
+    useEffect(() => {
+        if (isOnAdminPage) {
+            dispatch(GetAllLogs());
+        }
+
+    }, [logDrawerOpen])
 
     const LogoutFromSystem = async () => {
         await dispatch(LogoutPost());
@@ -51,6 +61,9 @@ function Navbar() {
     const isOnLoginPage = location.pathname == '/makalesistemi' || location.pathname == '/makaledurumsorgulama';
     const isOnAdminOrJudgePage = location.pathname == '/yonetici' || location.pathname.startsWith('/degerlendirici');
     const isOnAdminPage = location.pathname == '/yonetici';
+    const isNotContactPage = location.pathname == '/makaledurumsorgulama' || location.pathname == '/girisyap'
+        ||
+        location.pathname == '/kaydol' || location.pathname == '/makalesistemi';
 
 
     return (
@@ -59,7 +72,9 @@ function Navbar() {
                 <div className='navbar-main'>
                     <div style={{ width: "500px" }}>
 
-                        <h2>Makale Değerlendirme Sistemi</h2>
+                        <h2 className='navbar-h2'
+                            onClick={() => navigate('/makalesistemi')}
+                        >Makale Değerlendirme Sistemi</h2>
                     </div>
 
                     <div className='navbar-buttons'>
@@ -87,7 +102,7 @@ function Navbar() {
                         </div>
                         <div>
                             {
-                                (isOnUploadArticlePage || isOnInquiryPage)
+                                (isNotContactPage)
                                 &&
                                 <Button variant='contained' sx={{ marginRight: '15px', backgroundColor: 'rgb(71, 74, 76)', textTransform: 'none' }}
                                     onClick={() => navigate('/iletisim')} >
@@ -112,6 +127,14 @@ function Navbar() {
                                     onClick={() => navigate('/kaydol')} >
                                     Kaydol
                                 </Button>
+                            }
+
+                            {
+                                isOnAdminPage
+                                &&
+                                <IconButton onClick={() => dispatch(changeLogDrawer())} sx={{ marginBottom: '5px', marginRight: '15px' }}>
+                                    <BsClipboardDataFill style={{ fontSize: '28px' }} />
+                                </IconButton>
                             }
 
                             {isOnAdminPage

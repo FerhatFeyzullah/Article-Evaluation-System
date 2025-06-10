@@ -6,14 +6,11 @@ import { useParams } from 'react-router-dom'
 function Judge() {
 
     const { judgeId } = useParams();
-    console.log(judgeId)
+
     return (
         <div className='judge-main-div'>
             <Navbar />
             <JudgeArticleTable judgeId={judgeId} />
-
-
-
         </div>
     )
 }

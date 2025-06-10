@@ -33,14 +33,7 @@ function ArticleReview() {
 
     const handleChange = (event) => {
         setValue(event.target.value === "true");
-        setEditText("Herhangi bir düzenlemeye gerek duyulmamıştır");
-
     };
-    useEffect(() => {
-        if (!artState) {
-            setEditText("");
-        }
-    }, [artState])
 
     const PutState = async () => {
         const data = {
@@ -52,7 +45,6 @@ function ArticleReview() {
         await dispatch(PutArticleStatus(data));
         navigate("/degerlendirici/" + judgeId)
     }
-
 
 
     return (
@@ -102,17 +94,9 @@ function ArticleReview() {
 
                         <div>
 
-                            {
-                                artState ?
+                            <TextField variant='standard' multiline rows={5} sx={{ width: '300px' }} label='Düzenleme Gerekçesi'
+                                value={editText} onChange={(e) => setEditText(e.target.value)} />
 
-                                    <TextField variant='standard' multiline rows={5} sx={{ width: '300px' }} label='Düzenleme Gerekçesi' disabled
-                                        value={editText} onChange={(e) => setEditText(e.target.value)}
-                                    />
-                                    :
-                                    <TextField variant='standard' multiline rows={5} sx={{ width: '300px' }} label='Düzenleme Gerekçesi'
-                                        value={editText} onChange={(e) => setEditText(e.target.value)} />
-
-                            }
 
                             <FormControl>
                                 <FormLabel>Durum</FormLabel>

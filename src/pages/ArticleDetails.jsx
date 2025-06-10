@@ -38,7 +38,7 @@ function ArticleDetails() {
         <div className='article-details-main-div'>
             <Navbar />
             <div>
-                <Button variant='outlined' sx={{ textTransform: 'none', margin: '10px' }} onClick={() => navigate('/yonetici')}>
+                <Button variant='contained' sx={{ textTransform: 'none', margin: '10px' }} onClick={() => navigate('/yonetici')}>
                     TÜM MAKALELER
                 </Button>
             </div>

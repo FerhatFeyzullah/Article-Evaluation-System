@@ -10,15 +10,15 @@ function Article({ article }) {
 
     const navigate = useNavigate();
 
-    const { articleId, judgeStatus, title, writerEmail, judge, articleStatus } = article;
+    const { articleId, judgeStatus, title, writerEmail, judge, articleStatus, fileName } = article;
 
     return (
         <div className='article-card' style={{
             backgroundColor: !judge
-                ? 'rgba(105, 94, 94, 0.89)'
+                ? 'rgba(230, 226, 10, 0.56)'
                 : articleStatus === null
-                    ? 'rgba(8, 46, 104, 0.86)'
-                    : 'rgba(8, 104, 51, 0.9)'
+                    ? 'rgba(153, 69, 14, 0.56)'
+                    : 'rgba(10, 102, 51, 0.63)'
         }}>
             <CardContent>
                 <Typography variant="h5" component="div">
@@ -40,6 +40,18 @@ function Article({ article }) {
             </CardContent>
             <CardActions>
                 <Button size="small" variant='contained' sx={{ backgroundColor: 'whitesmoke', color: 'black', textTransform: 'none' }} onClick={() => navigate('/makale-detay/' + articleId)}>DETAYINA GİT</Button>
+
+                <Button
+                    variant="contained"
+                    color="primary"
+                    href={`https://localhost:7247/api/articles/pdfDownload/${fileName}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    size='small'
+                >
+                    PDF İndir
+                </Button>
+
             </CardActions>
         </div>
     )

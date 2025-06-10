@@ -10,13 +10,13 @@ function Message({ message }) {
     const { subject, email, read, messageId } = message;
 
     const readMessage = () => {
-        // 1. önce ilgili mesajı selectedMessage yap
+
         dispatch(setSelectedMessage(message));
 
-        // 2. okundu olarak işaretle (istersen önce veya sonra yapabilirsin)
+
         dispatch(ReadMessage(messageId));
 
-        // 3. dialog aç
+
         dispatch(changeMessage());
     };
 
@@ -24,7 +24,7 @@ function Message({ message }) {
         <div
             className="m-flex-row"
             style={{
-                border: read ? '5px solid lightgrey' : '5px solid rgb(212, 95, 95)',
+                border: read ? '2px solid lightgrey' : '2px solid rgb(212, 95, 95)',
             }}
         >
             <div className="m-div">

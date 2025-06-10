@@ -9,6 +9,7 @@ import Slide from '@mui/material/Slide';
 import { useDispatch, useSelector } from 'react-redux';
 import { assignJudgeDialogChange, AssignJudgeToArticle } from '../redux/slices/adminSlice';
 import { MenuItem, TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -16,6 +17,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 function AssignJudgeDialog({ articleId, onAssignComplete }) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { assignJudgeDialog, judges } = useSelector(store => store.admin)
 
     const [hakemId, setHakemId] = useState(0);
@@ -31,6 +33,7 @@ function AssignJudgeDialog({ articleId, onAssignComplete }) {
         if (onAssignComplete) {
             onAssignComplete(); // yeni veriyi çek
         }
+        navigate('/yonetici');
     }
 
     useEffect(() => {

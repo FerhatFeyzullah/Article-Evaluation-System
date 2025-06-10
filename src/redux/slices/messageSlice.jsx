@@ -4,7 +4,7 @@ import axios from '../../api/axios'
 const initialState = {
     messages: [],
     unreadCount: 0,
-    drawerOpen: false,
+    messageDrawerOpen: false,
     messageOpen: false,
     selectedMessage: {}
 }
@@ -32,7 +32,7 @@ export const messageSlice = createSlice({
     initialState,
     reducers: {
         changeDrawer: (state) => {
-            state.drawerOpen = !state.drawerOpen;
+            state.messageDrawerOpen = !state.messageDrawerOpen;
         },
         changeMessage: (state) => {
             state.messageOpen = !state.messageOpen;
