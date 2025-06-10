@@ -14,6 +14,7 @@ namespace ArticleEvaluationSystem.Persistence.Mapping.AppUserMapping
         public AppUserMapping()
         {
             CreateMap<AppUser, ResultAppUserDto>().ReverseMap();
+
         }
     }
 }

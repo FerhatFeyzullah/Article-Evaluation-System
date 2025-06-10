@@ -19,18 +19,18 @@ namespace ArticleEvaluationSystem.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<IActionResult> CreateMessage([FromBody] CreateMessageDto createMessageDto)
         {
             await _messageService.CreateMessageAsync(createMessageDto);
             return Ok("Message created successfully.");
         }
 
-        [HttpGet("GetUnreadMessages")]
-        public async Task<IActionResult> GetUnreadMessages()
+        [HttpGet("GetUnreadMessagesCount")]
+        public async Task<IActionResult> GetUnreadMessagesCount()
         {
-            var values = await _messageService.GetUnreadMessagesAsync();
-            return Ok(values);
+            var value = await _messageService.GetUnreadMessagesCountAsync();
+            return Ok(value);
         }
         [HttpPut("MessageRead/{id}")]
         public async Task<IActionResult> MessageRead(int id)

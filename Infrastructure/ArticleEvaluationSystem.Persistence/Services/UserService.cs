@@ -8,6 +8,8 @@ using ArticleEvaluationSystem.Application.DTOs.UserDTOs;
 using ArticleEvaluationSystem.Application.Services;
 using ArticleEvaluationSystem.Domain.Entities;
 using AutoMapper;
+using Azure;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 namespace ArticleEvaluationSystem.Persistence.Services
@@ -40,7 +42,7 @@ namespace ArticleEvaluationSystem.Persistence.Services
 
         public async Task<List<ResultAppUserDto>> GetAllJudges()
         {
-            var values = await _userManager.GetUsersInRoleAsync("Hakem");
+            var values = await _userManager.GetUsersInRoleAsync("Judge");
             return  _mapper.Map<List<ResultAppUserDto>>(values);
         }
 
@@ -55,12 +57,16 @@ namespace ArticleEvaluationSystem.Persistence.Services
                 return null;
 
             var token = await _jwtService.CreateTokenAsync(user);
+
+            
+
             return token;
         }
 
         public async Task LogoutAsync()
         {
             await _signManager.SignOutAsync();
+
         }
     }
 }

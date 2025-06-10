@@ -34,15 +34,16 @@ namespace ArticleEvaluationSystem.Persistence.Services
 
         public async Task<List<ResultMessageDto>> GetAllMessagesAsync()
         {
-            var values = await _context.Messages.ToListAsync();
+            var values = await _context.Messages.OrderByDescending(x=>x.MessageId).ToListAsync();
             return _mapper.Map<List<ResultMessageDto>>(values);
 
         }
 
-        public async Task<List<ResultMessageDto>> GetUnreadMessagesAsync()
+        public async Task<int> GetUnreadMessagesCountAsync()
         {
-            var values = await _context.Messages.Where(x => x.Read == false).ToListAsync();
-            return _mapper.Map<List<ResultMessageDto>>(values);
+            var count = await _context.Messages.CountAsync(x => x.Read == false);
+            return count;
+
         }
 
         public async Task MessageReadAsync(int id)

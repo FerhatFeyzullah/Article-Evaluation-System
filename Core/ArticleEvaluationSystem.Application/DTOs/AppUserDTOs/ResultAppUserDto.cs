@@ -8,6 +8,7 @@ namespace ArticleEvaluationSystem.Application.DTOs.AppUserDTOs
 {
     public class ResultAppUserDto
     {
+        public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
     }

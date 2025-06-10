@@ -14,8 +14,14 @@ namespace ArticleEvaluationSystem.Application.Services
 
         Task<ResultArticleDto> GetArticleByIdAndWriter(string fileName, string email);
 
+        Task<List<ResultArticleDto>> GetAllArticles();
+
+        Task<ResultArticleDto> GetArticleById(int articleId);
+
         Task AssignJudgeToArticle(int articleId, int judgeId);
 
         Task UpdateArticleStatus(int articleId, bool status, string reasonForEditing);
+
+        Task<List<ResultArticleDto>> GetArticleByJudgeId(int judgeId); 
     }
 }

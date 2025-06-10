@@ -47,7 +47,7 @@ namespace ArticleEvaluationSystem.Persistence.Services
 
             _context.Articles.Add(article);
             await _context.SaveChangesAsync();
-            await _logService.CreateLogAsync($"Yeni bir makale yüklendi. Makale Id: {article.ArticleId}", createArticleDto.WriterEmail);
+            await _logService.CreateLogAsync($"Yeni bir makale yüklendi. Makale Id: {article.ArticleId} Makale Başlığı: {article.Title}", createArticleDto.WriterEmail, $"Pdf Takip Numarası: {article.FileName}");
             return article.FileName;
         }
 
@@ -88,6 +88,24 @@ namespace ArticleEvaluationSystem.Persistence.Services
                 value.WriterEmail,
                 $" Yeni durum: {(status ? "Kabul Edildi" : "Reddedildi")}. Gerekçe: {reasonForEditing}");
             
+        }
+
+        public async Task<List<ResultArticleDto>> GetAllArticles()
+        {
+            var values = await _context.Articles.Include(x => x.Judge).OrderByDescending(x=>x.ArticleId).ToListAsync();
+            return _mapper.Map<List<ResultArticleDto>>(values);
+        }
+
+        public async Task<ResultArticleDto> GetArticleById(int articleId)
+        {
+            var value = await _context.Articles.Include(x => x.Judge).FirstOrDefaultAsync(x => x.ArticleId == articleId);
+            return _mapper.Map<ResultArticleDto>(value);
+        }
+
+        public async Task<List<ResultArticleDto>> GetArticleByJudgeId(int judgeId)
+        {
+            var values = await _context.Articles.Where(x=>x.JudgeId==judgeId).OrderByDescending(x => x.ArticleId).ToListAsync();
+            return _mapper.Map<List<ResultArticleDto>>(values);
         }
     }
 }

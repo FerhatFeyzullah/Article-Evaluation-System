@@ -12,6 +12,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -41,6 +43,19 @@ builder.Services.AddAuthentication(options =>
 }).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
 {
     options.RequireHttpsMetadata = false;
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            // Eðer Authorization header yoksa ? Cookie'den token al
+            if (string.IsNullOrEmpty(context.Token) && context.Request.Cookies.ContainsKey("MyAuthCookie"))
+            {
+                context.Token = context.Request.Cookies["MyAuthCookie"];
+            }
+
+            return Task.CompletedTask;
+        }
+    };
     options.TokenValidationParameters = new TokenValidationParameters()
     {
         ValidateIssuer = true,
@@ -55,6 +70,28 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true; // Tarayýcýdan JavaScript ile eriþilemesin
+    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest; 
+    options.Cookie.SameSite = SameSiteMode.Lax; // veya Strict / None
+    options.Cookie.Name = "JWT"; // Ýsteðe baðlý
+    options.LoginPath = "/girisyap"; // Giriþ yapýlmadýðýnda yönlendirilecek yer
+    options.AccessDeniedPath = "/girisyap"; // Yetki yoksa yönlendirilecek yer
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Cookie ömrü
+    options.SlidingExpiration = true; // Süre dolmadan aktifse uzat
+});
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost5173",
+        policy => policy.WithOrigins("http://localhost:5173")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -63,7 +100,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("AllowLocalhost5173");
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

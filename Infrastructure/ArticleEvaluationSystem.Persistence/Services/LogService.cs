@@ -17,9 +17,10 @@ namespace ArticleEvaluationSystem.Persistence.Services
         private readonly ArticleDbContext _context;
         private readonly IMapper _mapper;
 
-        public LogService(ArticleDbContext context)
+        public LogService(ArticleDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task CreateLogAsync(string eventName, string? userEmail = null, string? extraData = null)

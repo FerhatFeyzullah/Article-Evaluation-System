@@ -31,6 +31,13 @@ namespace ArticleEvaluationSystem.API.Controllers
                 return BadRequest(new { message = "Email veya şifre hatalı." });
             }
 
+            Response.Cookies.Append("MyAuthCookie", token, new CookieOptions
+            {
+                HttpOnly = true,
+                SameSite = SameSiteMode.None,
+                Secure = true
+            });
+
             return Ok(new { token });
 
         }
@@ -38,6 +45,8 @@ namespace ArticleEvaluationSystem.API.Controllers
         public async Task<IActionResult> Logout()
         {
             await _userService.LogoutAsync();
+            Response.Cookies.Delete("JWT");
+            Response.Cookies.Delete("MyAuthCookie");
             return Ok(new { message = "Logout successful." });
         }
     }

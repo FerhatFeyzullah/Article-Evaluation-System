@@ -7,6 +7,7 @@ using ArticleEvaluationSystem.Application.Services;
 using ArticleEvaluationSystem.Persistence.Configurations;
 using ArticleEvaluationSystem.Persistence.Mapping.AppUserMapping;
 using ArticleEvaluationSystem.Persistence.Mapping.ArticleMapping;
+using ArticleEvaluationSystem.Persistence.Mapping.LogMapping;
 using ArticleEvaluationSystem.Persistence.Mapping.MessageMapping;
 using ArticleEvaluationSystem.Persistence.Services;
 using Microsoft.Extensions.Configuration;
@@ -30,7 +31,8 @@ namespace ArticleEvaluationSystem.Persistence.ServiceExtension
             services.AddAutoMapper(
                 typeof(ArticleMapping),
                 typeof(AppUserMapping),
-                typeof(MessageMapping)           
+                typeof(MessageMapping),           
+                typeof(LogMapping)
                 );
             
 

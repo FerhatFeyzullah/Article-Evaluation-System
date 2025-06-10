@@ -13,7 +13,7 @@ namespace ArticleEvaluationSystem.Application.Services
 
         Task<List<ResultMessageDto>> GetAllMessagesAsync();
 
-        Task<List<ResultMessageDto>> GetUnreadMessagesAsync();
+        Task<int> GetUnreadMessagesCountAsync();
 
         Task MessageReadAsync(int id);
 

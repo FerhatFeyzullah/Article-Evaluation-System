@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ArticleEvaluationSystem.API.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController(IUserService _userService) : ControllerBase
     {
-        [Authorize(Roles ="Admin")]
+        
         [HttpGet("GetAllJudges")]
         public async Task<IActionResult> GetAllJudges() 
         {
