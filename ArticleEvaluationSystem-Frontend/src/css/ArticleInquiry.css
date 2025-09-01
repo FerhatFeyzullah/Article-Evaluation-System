@@ -1,0 +1,14 @@
+.inquiry-main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+.inquiry-input {
+    margin-right: 15px;
+    background-color: whitesmoke;
+    border-radius: 5px;
+}
